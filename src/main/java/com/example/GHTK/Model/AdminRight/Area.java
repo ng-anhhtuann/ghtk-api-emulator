@@ -1,13 +1,10 @@
-package com.example.GHTK.Model;
+package com.example.GHTK.Model.AdminRight;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Area {
 
-    @SerializedName("idArea")
-    @Expose
-    private String idArea;
     @SerializedName("nameArea")
     @Expose
     private String nameArea;
@@ -15,22 +12,12 @@ public class Area {
     @Override
     public String toString() {
         return "{" +
-                "idArea='" + idArea + '\'' +
-                ", nameArea='" + nameArea + '\'' +
+                "nameArea='" + nameArea + '\'' +
                 '}';
     }
 
-    public Area(String idArea, String nameArea) {
-        this.idArea = idArea;
+    public Area(String nameArea) {
         this.nameArea = nameArea;
-    }
-
-    public String getIdArea() {
-        return idArea;
-    }
-
-    public void setIdArea(String idArea) {
-        this.idArea = idArea;
     }
 
     public String getNameArea() {
