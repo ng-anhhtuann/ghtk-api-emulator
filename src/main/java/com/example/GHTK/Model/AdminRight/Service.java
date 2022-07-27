@@ -1,15 +1,16 @@
-package com.example.GHTK.Model;
+package com.example.GHTK.Model.AdminRight;
 
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
 public class Service {
 
-    @SerializedName("idService")
-    @Expose
-    private String idService;
+//    @SerializedName("idService")
+//    @Expose
+//    private String idService;
     @SerializedName("nameService")
     @Expose
     private String nameService;
@@ -17,23 +18,21 @@ public class Service {
     @Override
     public String toString() {
         return "Service{" +
-                "idService='" + idService + '\'' +
-                ", nameService='" + nameService + '\'' +
+                "nameService='" + nameService + '\'' +
                 '}';
     }
 
-    public Service(String idService, String nameService) {
-        this.idService = idService;
+    public Service(String nameService) {
         this.nameService = nameService;
     }
 
-    public String getIdService() {
-        return idService;
-    }
-
-    public void setIdService(String idService) {
-        this.idService = idService;
-    }
+    //    public String getIdService() {
+//        return idService;
+//    }
+//
+//    public void setIdService(String idService) {
+//        this.idService = idService;
+//    }
 
     public String getNameService() {
         return nameService;

@@ -1,4 +1,4 @@
-package com.example.GHTK.Model;
+package com.example.GHTK.Model.UserRight;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
@@ -25,6 +25,28 @@ public class Shipper {
     @Expose
     private String addressShipper;
 
+    public String getMailShipper() {
+        return mailShipper;
+    }
+
+    public void setMailShipper(String mailShipper) {
+        this.mailShipper = mailShipper;
+    }
+
+    @SerializedName("mailShipper")
+    @Expose
+    private String mailShipper;
+
+    public Shipper(String idShipper, String nameShipper, String bornShipper, boolean genderShipper, String numberShipper, String addressShipper, String mailShipper) {
+        this.idShipper = idShipper;
+        this.nameShipper = nameShipper;
+        this.bornShipper = bornShipper;
+        this.genderShipper = genderShipper;
+        this.numberShipper = numberShipper;
+        this.addressShipper = addressShipper;
+        this.mailShipper = mailShipper;
+    }
+
     @Override
     public String toString() {
         return "Shipper{" +
@@ -34,16 +56,8 @@ public class Shipper {
                 ", genderShipper=" + genderShipper +
                 ", numberShipper='" + numberShipper + '\'' +
                 ", addressShipper='" + addressShipper + '\'' +
+                ", mailShipper='" + mailShipper + '\'' +
                 '}';
-    }
-
-    public Shipper(String idShipper, String nameShipper, String bornShipper, boolean genderShipper, String numberShipper, String addressShipper) {
-        this.idShipper = idShipper;
-        this.nameShipper = nameShipper;
-        this.bornShipper = bornShipper;
-        this.genderShipper = genderShipper;
-        this.numberShipper = numberShipper;
-        this.addressShipper = addressShipper;
     }
 
     public String getIdShipper() {
