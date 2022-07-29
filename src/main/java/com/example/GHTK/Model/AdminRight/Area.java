@@ -15,7 +15,7 @@ public class Area {
                 "nameArea='" + nameArea + '\'' +
                 '}';
     }
-
+    public Area(){}
     public Area(String nameArea) {
         this.nameArea = nameArea;
     }

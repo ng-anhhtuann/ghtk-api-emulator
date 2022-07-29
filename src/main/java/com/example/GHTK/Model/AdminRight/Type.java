@@ -6,16 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Type {
 
-//    @SerializedName("idProduct")
-//    @Expose
-//    private String idProduct;
     @SerializedName("nameProduct")
     @Expose
     private String nameProduct;
-
-//    public String getIdProduct() {
-//        return idProduct;
-//    }
+    public Type(){}
 
     @Override
     public String toString() {
@@ -27,11 +21,6 @@ public class Type {
     public Type(String nameProduct) {
         this.nameProduct = nameProduct;
     }
-
-
-//    public void setIdProduct(String idProduct) {
-//        this.idProduct = idProduct;
-//    }
 
     public String getNameProduct() {
         return nameProduct;
