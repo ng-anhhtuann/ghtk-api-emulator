@@ -8,13 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Service {
 
-//    @SerializedName("idService")
-//    @Expose
-//    private String idService;
     @SerializedName("nameService")
     @Expose
     private String nameService;
-
+    public Service(){}
     @Override
     public String toString() {
         return "Service{" +
@@ -25,14 +22,6 @@ public class Service {
     public Service(String nameService) {
         this.nameService = nameService;
     }
-
-    //    public String getIdService() {
-//        return idService;
-//    }
-//
-//    public void setIdService(String idService) {
-//        this.idService = idService;
-//    }
 
     public String getNameService() {
         return nameService;

@@ -2,6 +2,7 @@
 package com.example.GHTK.Model.UserRight;
 
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,9 +17,6 @@ public class Customer {
     @SerializedName("nameShop")
     @Expose
     private String nameShop;
-    @SerializedName("idArea")
-    @Expose
-    private String idArea;
     @SerializedName("areaCustomer")
     @Expose
     private String areaCustomer;
@@ -41,7 +39,6 @@ public class Customer {
                 "idCustomer='" + idCustomer + '\'' +
                 ", nameCustomer='" + nameCustomer + '\'' +
                 ", nameShop='" + nameShop + '\'' +
-                ", idArea='" + idArea + '\'' +
                 ", areaCustomer='" + areaCustomer + '\'' +
                 ", numberCustomer='" + numberCustomer + '\'' +
                 ", addressCustomer='" + addressCustomer + '\'' +
@@ -72,14 +69,6 @@ public class Customer {
 
     public void setNameShop(String nameShop) {
         this.nameShop = nameShop;
-    }
-
-    public String getIdArea() {
-        return idArea;
-    }
-
-    public void setIdArea(String idArea) {
-        this.idArea = idArea;
     }
 
     public String getAreaCustomer() {
@@ -122,11 +111,10 @@ public class Customer {
         this.taxCodeCustomer = taxCodeCustomer;
     }
 
-    public Customer(String idCustomer, String nameCustomer, String nameShop, String idArea, String areaCustomer, String numberCustomer, String addressCustomer, String mailCustomer, String taxCodeCustomer) {
+    public Customer(String idCustomer, String nameCustomer, String nameShop, String areaCustomer, String numberCustomer, String addressCustomer, String mailCustomer, String taxCodeCustomer) {
         this.idCustomer = idCustomer;
         this.nameCustomer = nameCustomer;
         this.nameShop = nameShop;
-        this.idArea = idArea;
         this.areaCustomer = areaCustomer;
         this.numberCustomer = numberCustomer;
         this.addressCustomer = addressCustomer;
