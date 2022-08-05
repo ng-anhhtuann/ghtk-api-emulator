@@ -8,19 +8,19 @@ import com.example.GHTK.Model.Status.Error;
 import com.example.GHTK.Model.Status.Success;
 import com.example.GHTK.Model.AdminRight.Area;
 import com.example.GHTK.Model.UserRight.Customer;
+import com.example.GHTK.Model.UserRight.Order;
 import com.example.GHTK.Model.UserRight.Shipper;
+import com.example.GHTK.Ultilities.Database;
+import com.example.GHTK.Ultilities.ValidateMail;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.sql.*;
 import java.util.List;
 
 public class Repository {
-    private static final String url = "jdbc:mysql://localhost:3306/GHTK";
-    private static final String username = "root";
-    private static final String password = "0944988947t";
+    private static final Connection connection = Database.getConnection();
 
     public static Repository repository;
 
@@ -43,8 +43,6 @@ public class Repository {
         Date time create and add this field
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
-
-        Connection connection = DriverManager.getConnection(url, username, password);
 
         String insert = "INSERT INTO GHTK.Area(idArea,nameArea,timeCreated) VALUES (?,?,?)";
 
@@ -92,8 +90,6 @@ public class Repository {
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        Connection connection = DriverManager.getConnection(url, username, password);
-
         String insert = "INSERT INTO GHTK.Service(idService,nameService,timeCreated) VALUES (?,?,?)";
 
         String lastRecord = "SELECT idService FROM GHTK.Service ORDER BY idService DESC LIMIT 1;";
@@ -139,8 +135,6 @@ public class Repository {
         Date time create and add this field
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
-
-        Connection connection = DriverManager.getConnection(url, username, password);
 
         String insert = "INSERT INTO GHTK.Time(idTime,descriptionTime,timeCreated) VALUES (?,?,?)";
 
@@ -188,8 +182,6 @@ public class Repository {
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        Connection connection = DriverManager.getConnection(url, username, password);
-
         String insert = "INSERT INTO GHTK.Type(idType,nameType,timeCreated) VALUES (?,?,?)";
 
         String lastRecord = "SELECT idType FROM GHTK.Type ORDER BY idType DESC LIMIT 1;";
@@ -235,7 +227,6 @@ public class Repository {
 
         String query = "SELECT * FROM GHTK.Area;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -254,7 +245,6 @@ public class Repository {
         Area area = null;
         String query = "SELECT * FROM GHTK.Area WHERE idArea ='" + idArea + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -275,7 +265,6 @@ public class Repository {
 
         String query = "SELECT * FROM GHTK.Time;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -294,7 +283,6 @@ public class Repository {
         TimeLine timeLine = null;
         String query = "SELECT * FROM GHTK.Time WHERE idTime ='" + id + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -315,7 +303,6 @@ public class Repository {
 
         String query = "SELECT * FROM GHTK.Service;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -334,7 +321,6 @@ public class Repository {
         Service service = null;
         String query = "SELECT * FROM GHTK.Service WHERE idService ='" + id + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -355,7 +341,6 @@ public class Repository {
 
         String query = "SELECT * FROM GHTK.Type;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -374,7 +359,6 @@ public class Repository {
         Type type = null;
         String query = "SELECT * FROM GHTK.Type WHERE idType ='" + id + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -395,7 +379,6 @@ public class Repository {
 
         String query = "SELECT * FROM GHTK.Customer;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -421,7 +404,6 @@ public class Repository {
         Customer customer = null;
         String query = "SELECT * FROM GHTK.Customer WHERE idCustomer ='" + id + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -449,7 +431,6 @@ public class Repository {
 
         String query = "SELECT * FROM GHTK.Shipper;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -474,7 +455,6 @@ public class Repository {
         Shipper shipper = null;
         String query = "SELECT * FROM GHTK.Shipper WHERE idShipper ='" + id + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -516,7 +496,6 @@ public class Repository {
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType;";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -546,7 +525,10 @@ public class Repository {
         return object;
     }
 
-    public Object queryOrderById(String id) {
+    /*
+    By idOrder
+     */
+    public Object queryOrderByIdOrder(String idOrder) {
         Object object = null;
         OrderDetails orderDetails;
 
@@ -563,9 +545,8 @@ public class Repository {
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE idOrder = '" + id + "';";
+                "WHERE idOrder = '" + idOrder + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             if (resultSet.next()) {
@@ -596,7 +577,10 @@ public class Repository {
         return object;
     }
 
-    public Object queryAllOrderNotApproved() {
+    /*
+    By idCustomer( the same sender )
+     */
+    public Object queryAllOrderByIdCustomer(String idshopOrder) {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
@@ -613,9 +597,8 @@ public class Repository {
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE approveOrder = 0;";
+                "WHERE idshopOrder = '" + idshopOrder + "';";
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
@@ -645,4 +628,400 @@ public class Repository {
         return object;
     }
 
+    /*
+    Same shipper
+     */
+    public Object queryAllOrderByIdShipper(String idshipperOrder) {
+        Object object = null;
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
+
+        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
+                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
+                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
+                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
+                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
+                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
+                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
+                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
+                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "WHERE idshipperOrder = '" + idshipperOrder + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            while (resultSet.next()) {
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
+                        resultSet.getString("numberShop"),
+                        resultSet.getString("addressShop"),
+                        resultSet.getString("daysendOrder"),
+                        resultSet.getString("nameReceiver"),
+                        resultSet.getString("numberReceiver"),
+                        resultSet.getString("addressReceiver"),
+                        resultSet.getString("nameShipper"),
+                        resultSet.getString("numberShipper"),
+                        resultSet.getString("nameOrder"),
+                        resultSet.getInt("costOrder"),
+                        resultSet.getString("nameType"),
+                        resultSet.getString("descriptionTime"),
+                        resultSet.getString("nameService"),
+                        resultSet.getBoolean("approveOrder"),
+                        resultSet.getBoolean("statusDeliver"),
+                        resultSet.getBoolean("isAvailable"));
+                orderDetailsList.add(orderDetails);
+            }
+            object = new Success(true, orderDetailsList.toString());
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    /*
+    See which orders have been approved or not
+     */
+    public Object queryAllOrderNotApproved() {
+        Object object = null;
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
+
+        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
+                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
+                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
+                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
+                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
+                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
+                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
+                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
+                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "WHERE approveOrder = 0;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            while (resultSet.next()) {
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
+                        resultSet.getString("numberShop"),
+                        resultSet.getString("addressShop"),
+                        resultSet.getString("daysendOrder"),
+                        resultSet.getString("nameReceiver"),
+                        resultSet.getString("numberReceiver"),
+                        resultSet.getString("addressReceiver"),
+                        resultSet.getString("nameShipper"),
+                        resultSet.getString("numberShipper"),
+                        resultSet.getString("nameOrder"),
+                        resultSet.getInt("costOrder"),
+                        resultSet.getString("nameType"),
+                        resultSet.getString("descriptionTime"),
+                        resultSet.getString("nameService"),
+                        resultSet.getBoolean("approveOrder"),
+                        resultSet.getBoolean("statusDeliver"),
+                        resultSet.getBoolean("isAvailable"));
+                orderDetailsList.add(orderDetails);
+            }
+            object = new Success(true, orderDetailsList.toString());
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    public Object queryAllOrderApproved() {
+        Object object = null;
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
+
+        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
+                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
+                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
+                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
+                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
+                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
+                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
+                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
+                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "WHERE approveOrder = 1;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            while (resultSet.next()) {
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
+                        resultSet.getString("numberShop"),
+                        resultSet.getString("addressShop"),
+                        resultSet.getString("daysendOrder"),
+                        resultSet.getString("nameReceiver"),
+                        resultSet.getString("numberReceiver"),
+                        resultSet.getString("addressReceiver"),
+                        resultSet.getString("nameShipper"),
+                        resultSet.getString("numberShipper"),
+                        resultSet.getString("nameOrder"),
+                        resultSet.getInt("costOrder"),
+                        resultSet.getString("nameType"),
+                        resultSet.getString("descriptionTime"),
+                        resultSet.getString("nameService"),
+                        resultSet.getBoolean("approveOrder"),
+                        resultSet.getBoolean("statusDeliver"),
+                        resultSet.getBoolean("isAvailable"));
+                orderDetailsList.add(orderDetails);
+            }
+            object = new Success(true, orderDetailsList.toString());
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    /*
+    Admin approves all the order
+     */
+    public Object approveAllOrder() {
+        Object object = null;
+        String update = "UPDATE GHTK.Order as A\n" +
+                "SET A.approveOrder = 1 \n" +
+                "WHERE A.approveOrder = 0;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            object = new Success(true, rowsEffected + " order(s) have been approved");
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    /*
+    UserRight API (Shipper and Customer)
+     */
+
+    /*
+    Shop abilities
+     */
+    public Object createOrder(Order order) throws SQLException {
+        Object object = null;
+        if (order == null) {
+            object = new Error(false, "We dont accept null information here");
+        }
+
+        String insert = "INSERT INTO GHTK.Order(idOrder, idshopOrder, idshipperOrder, idserviceOrder," +
+                "idtypeOrder, idtimeOrder, daysendOrder, nameOrder, weightOrder, costOrder," +
+                "nameReceiver, numberReceiver, addressReceiver, paymentOrder, approveOrder," +
+                "statusDeliver, isAvailable) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        String lastRecord = "SELECT idOrder FROM GHTK.Order ORDER BY idOrder DESC LIMIT 1;";
+        PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
+        ResultSet resultLastRecord = lastRecordPS.executeQuery();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
+            if (resultLastRecord.next()) {
+                String tempId = resultLastRecord.getString(1).replaceAll("[a-zA-Z]+", "");
+                Integer num = Integer.parseInt(tempId) + 1;
+
+                preparedStatement.setString(1, "DH" + num);
+            } else {
+                preparedStatement.setString(1, "DH1");
+            }
+            preparedStatement.setString(2, order.getIdshopOrder());
+            preparedStatement.setString(3, null);
+            preparedStatement.setString(4, order.getIdserviceOrder());
+            preparedStatement.setString(5, order.getIdtypeOrder());
+            preparedStatement.setString(6, order.getIdtimeOrder());
+            preparedStatement.setString(7, order.getDaysendOrder());
+            preparedStatement.setString(8, order.getNameOrder());
+            preparedStatement.setDouble(9, order.getWeightOrder());
+            preparedStatement.setInt(10, order.getCostOrder());
+            preparedStatement.setString(11, order.getNameReceiver());
+            preparedStatement.setString(12, order.getNumberReceiver());
+            preparedStatement.setString(13, order.getAddressReceiver());
+            preparedStatement.setBoolean(14, order.isPaymentOrder());
+            preparedStatement.setBoolean(15, false);
+            preparedStatement.setBoolean(16, false);
+            preparedStatement.setBoolean(17, true);
+            preparedStatement.executeUpdate();
+            object = new Success(true, order.toString());
+        } catch (Exception e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    /*
+    Editable details in Customer by Customer
+     */
+    public Object updateAddress(String id, String newAddress) {
+        Object object = null;
+        String update = "UPDATE GHTK.Customer as A\n" +
+                "SET A.addressCustomer = '" + newAddress + "' \n" +
+                "WHERE A.idCustomer = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Address is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    public Object updateNameShopCustomer(String id, String newNameShop) {
+        Object object = null;
+        String update = "UPDATE GHTK.Customer as A\n" +
+                "SET A.nameShop = '" + newNameShop + "' \n" +
+                "WHERE A.idCustomer = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "NameShop is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    public Object updateNameCustomer(String id, String newNameCustomer) {
+        Object object = null;
+        String update = "UPDATE GHTK.Customer as A\n" +
+                "SET A.nameCustomer = '" + newNameCustomer + "' \n" +
+                "WHERE A.idCustomer = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Name Customer is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    public Object updateAreaCustomer(String id, String newArea) {
+        Object object = null;
+        String update = "UPDATE GHTK.Customer as A\n" +
+                "SET A.areaCustomer = '" + newArea + "' \n" +
+                "WHERE A.idCustomer = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Area is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    public Object updateNumberCustomer(String id, String newNumber) {
+        Object object = null;
+        String update = "UPDATE GHTK.Customer as A\n" +
+                "SET A.numberCustomer = '" + newNumber + "' \n" +
+                "WHERE A.idCustomer = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Number is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    public Object updateMailCustomer(String id, String newMail) {
+        Object object = null;
+
+        String update = "UPDATE GHTK.Customer as A\n" +
+                "SET A.areaCustomer = '" + newMail + "' \n" +
+                "WHERE A.idCustomer = '" + id + "';";
+
+        boolean mailValidation = ValidateMail.validate(newMail);
+        if (mailValidation) {
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(update);
+                int rowsEffected = preparedStatement.executeUpdate();
+                if (rowsEffected != 0) {
+                    object = new Success(true, "Area is updated for user " + id);
+                } else {
+                    object = new Error(false, "Unknown id :" + id);
+                }
+            } catch (SQLException e) {
+                object = new Error(false, e.getMessage());
+            }
+        } else {
+            object = new Error(false, "Invalid mail format!");
+        }
+
+        return object;
+    }
+
+    public Object queryAllOrderOfCustomer(String id) {
+        Object object;
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
+
+        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
+                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
+                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
+                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
+                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
+                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
+                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
+                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
+                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "WHERE idshopOrder = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            while (resultSet.next()) {
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
+                        resultSet.getString("numberShop"),
+                        resultSet.getString("addressShop"),
+                        resultSet.getString("daysendOrder"),
+                        resultSet.getString("nameReceiver"),
+                        resultSet.getString("numberReceiver"),
+                        resultSet.getString("addressReceiver"),
+                        resultSet.getString("nameShipper"),
+                        resultSet.getString("numberShipper"),
+                        resultSet.getString("nameOrder"),
+                        resultSet.getInt("costOrder"),
+                        resultSet.getString("nameType"),
+                        resultSet.getString("descriptionTime"),
+                        resultSet.getString("nameService"),
+                        resultSet.getBoolean("approveOrder"),
+                        resultSet.getBoolean("statusDeliver"),
+                        resultSet.getBoolean("isAvailable"));
+                orderDetailsList.add(orderDetails);
+            }
+            object = new Success(true, orderDetailsList.toString());
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
 }
+

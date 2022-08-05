@@ -5,15 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Order {
 
-    @SerializedName("idOrder")
-    @Expose
-    private String idOrder;
     @SerializedName("idshopOrder")
     @Expose
     private String idshopOrder;
-    //    @SerializedName("idshipperOrder")
-//    @Expose
-//    private String idshipperOrder;
     @SerializedName("idserviceOrder")
     @Expose
     private String idserviceOrder;
@@ -46,43 +40,8 @@ public class Order {
     private String addressReceiver;
     @SerializedName("paymentOrder")
     @Expose
-    private boolean paymentOrder;
+    private boolean paymentOrder;           //0: banking ~ 1:cash
 
-    @Override
-    public String toString() {
-        return "{" +
-                "idOrder='" + idOrder + '\'' +
-                ", idshopOrder='" + idshopOrder + '\'' +
-                ", idserviceOrder='" + idserviceOrder + '\'' +
-                ", idtypeOrder='" + idtypeOrder + '\'' +
-                ", idtimeOrder='" + idtimeOrder + '\'' +
-                ", daysendOrder='" + daysendOrder + '\'' +
-                ", nameOrder='" + nameOrder + '\'' +
-                ", weightOrder=" + weightOrder +
-                ", costOrder=" + costOrder +
-                ", nameReceiver='" + nameReceiver + '\'' +
-                ", numberReceiver='" + numberReceiver + '\'' +
-                ", addressReceiver='" + addressReceiver + '\'' +
-                ", paymentOrder=" + paymentOrder +
-                '}';
-    }
-//    @SerializedName("approveOrder")
-//    @Expose
-//    private boolean approveOrder;
-//    @SerializedName("statusDeliver")
-//    @Expose
-//    private boolean statusDeliver;
-//    @SerializedName("isAvailable")
-//    @Expose
-//    private boolean isAvailable;
-
-    public String getIdOrder() {
-        return idOrder;
-    }
-
-    public void setIdOrder(String idOrder) {
-        this.idOrder = idOrder;
-    }
 
     public String getIdshopOrder() {
         return idshopOrder;
@@ -91,14 +50,6 @@ public class Order {
     public void setIdshopOrder(String idshopOrder) {
         this.idshopOrder = idshopOrder;
     }
-
-//    public String getIdshipperOrder() {
-//        return idshipperOrder;
-//    }
-//
-//    public void setIdshipperOrder(String idshipperOrder) {
-//        this.idshipperOrder = idshipperOrder;
-//    }
 
     public String getIdserviceOrder() {
         return idserviceOrder;
@@ -188,9 +139,25 @@ public class Order {
         this.paymentOrder = paymentOrder;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "idshopOrder='" + idshopOrder + '\'' +
+                ", idserviceOrder='" + idserviceOrder + '\'' +
+                ", idtypeOrder='" + idtypeOrder + '\'' +
+                ", idtimeOrder='" + idtimeOrder + '\'' +
+                ", daysendOrder='" + daysendOrder + '\'' +
+                ", nameOrder='" + nameOrder + '\'' +
+                ", weightOrder=" + weightOrder +
+                ", costOrder=" + costOrder +
+                ", nameReceiver='" + nameReceiver + '\'' +
+                ", numberReceiver='" + numberReceiver + '\'' +
+                ", addressReceiver='" + addressReceiver + '\'' +
+                ", paymentOrder=" + paymentOrder +
+                '}';
+    }
 
-    public Order(String idOrder, String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String daysendOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
-        this.idOrder = idOrder;
+    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String daysendOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
         this.idshopOrder = idshopOrder;
         this.idserviceOrder = idserviceOrder;
         this.idtypeOrder = idtypeOrder;

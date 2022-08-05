@@ -1,4 +1,4 @@
-package com.example.GHTK.Method.AdminRight;
+package com.example.GHTK.Method.AdminMethod;
 
 import com.example.GHTK.Model.AdminRight.Area;
 import com.example.GHTK.Model.AdminRight.Service;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 
-@RestController
-@RequestMapping(value = "post")
+@RestController("AdminRightPost")
+@RequestMapping(value = "admin/post")
 public class Post {
     @PostMapping(value = "area")
     public Object post(@RequestBody Area area) throws SQLException {
