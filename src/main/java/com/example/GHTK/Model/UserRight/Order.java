@@ -1,20 +1,13 @@
 package com.example.GHTK.Model.UserRight;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Order {
 
-    @SerializedName("idOrder")
-    @Expose
-    private String idOrder;
     @SerializedName("idshopOrder")
     @Expose
     private String idshopOrder;
-    @SerializedName("idshipperOrder")
-    @Expose
-    private String idshipperOrder;
     @SerializedName("idserviceOrder")
     @Expose
     private String idserviceOrder;
@@ -47,24 +40,8 @@ public class Order {
     private String addressReceiver;
     @SerializedName("paymentOrder")
     @Expose
-    private boolean paymentOrder;
-//    @SerializedName("approveOrder")
-//    @Expose
-//    private boolean approveOrder;
-//    @SerializedName("statusDeliver")
-//    @Expose
-//    private boolean statusDeliver;
-//    @SerializedName("isAvailble")
-//    @Expose
-//    private boolean isAvailble;
+    private boolean paymentOrder;           //0: banking ~ 1:cash
 
-    public String getIdOrder() {
-        return idOrder;
-    }
-
-    public void setIdOrder(String idOrder) {
-        this.idOrder = idOrder;
-    }
 
     public String getIdshopOrder() {
         return idshopOrder;
@@ -72,14 +49,6 @@ public class Order {
 
     public void setIdshopOrder(String idshopOrder) {
         this.idshopOrder = idshopOrder;
-    }
-
-    public String getIdshipperOrder() {
-        return idshipperOrder;
-    }
-
-    public void setIdshipperOrder(String idshipperOrder) {
-        this.idshipperOrder = idshipperOrder;
     }
 
     public String getIdserviceOrder() {
@@ -170,13 +139,10 @@ public class Order {
         this.paymentOrder = paymentOrder;
     }
 
-
     @Override
     public String toString() {
-        return "{" +
-                "idOrder='" + idOrder + '\'' +
-                ", idshopOrder='" + idshopOrder + '\'' +
-                ", idshipperOrder='" + idshipperOrder + '\'' +
+        return "Order{" +
+                "idshopOrder='" + idshopOrder + '\'' +
                 ", idserviceOrder='" + idserviceOrder + '\'' +
                 ", idtypeOrder='" + idtypeOrder + '\'' +
                 ", idtimeOrder='" + idtimeOrder + '\'' +
@@ -191,10 +157,8 @@ public class Order {
                 '}';
     }
 
-    public Order(String idOrder, String idshopOrder, String idshipperOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String daysendOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
-        this.idOrder = idOrder;
+    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String daysendOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
         this.idshopOrder = idshopOrder;
-        this.idshipperOrder = idshipperOrder;
         this.idserviceOrder = idserviceOrder;
         this.idtypeOrder = idtypeOrder;
         this.idtimeOrder = idtimeOrder;

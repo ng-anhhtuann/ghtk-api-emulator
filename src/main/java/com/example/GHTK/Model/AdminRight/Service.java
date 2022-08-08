@@ -11,7 +11,10 @@ public class Service {
     @SerializedName("nameService")
     @Expose
     private String nameService;
-    public Service(){}
+
+    public Service() {
+    }
+
     @Override
     public String toString() {
         return "Service{" +
