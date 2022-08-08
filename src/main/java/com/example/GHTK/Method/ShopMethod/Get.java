@@ -1,7 +1,6 @@
 package com.example.GHTK.Method.ShopMethod;
 
 import com.example.GHTK.Repository.Repository;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -8,6 +8,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
+    public static Database database;
+
+    public static Database getDatabase() {
+        if (database == null) {
+            database = new Database();
+        }
+        return database;
+    }
+
     public static Connection connection;
 
     static {

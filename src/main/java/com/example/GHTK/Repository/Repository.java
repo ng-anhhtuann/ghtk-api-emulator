@@ -20,7 +20,8 @@ import java.sql.*;
 import java.util.List;
 
 public class Repository {
-    private static final Connection connection = Database.getConnection();
+    private static final Database database = Database.getDatabase();
+    private static final Connection connection = database.getConnection();
 
     public static Repository repository;
 
@@ -1015,7 +1016,10 @@ public class Repository {
                         resultSet.getBoolean("approveOrder"),
                         resultSet.getBoolean("statusDeliver"),
                         resultSet.getBoolean("isAvailable"));
+//                System.out.println(orderDetails.toString());
                 orderDetailsList.add(orderDetails);
+//                System.out.println("===============");
+//                System.out.print(orderDetailsList.toString());
             }
             object = new Success(true, orderDetailsList.toString());
         } catch (SQLException e) {
