@@ -19,7 +19,7 @@ import java.util.Date;
 import java.sql.*;
 import java.util.List;
 
-public class Repository {
+public class Repository implements RepoManager {
     private static final Database database = Database.getDatabase();
     private static final Connection connection = database.getConnection();
 
@@ -35,6 +35,7 @@ public class Repository {
     /*
     POST API (rights only) for admin account
      */
+    @Override
     public Object insert(Area area) throws SQLException {
         Object object = null;
         if (area == null) {
@@ -81,6 +82,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object insert(Service service) throws SQLException {
         Object object = null;
         if (service == null) {
@@ -127,6 +129,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object insert(TimeLine timeLine) throws SQLException {
         Object object = null;
         if (timeLine == null) {
@@ -173,6 +176,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object insert(Type type) throws SQLException {
         Object object = null;
         if (type == null) {
@@ -222,6 +226,7 @@ public class Repository {
     /*
     GET API (rights only) for admin account
      */
+    @Override
     public Object queryArea() {
         Object object = null;
         List<Area> areaList = new ArrayList<>();
@@ -241,6 +246,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryAreaById(String idArea) {
         Object object = null;
         Area area = null;
@@ -260,6 +266,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryTime() {
         Object object;
         List<TimeLine> timeList = new ArrayList<>();
@@ -279,6 +286,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryTimeById(String id) {
         Object object = null;
         TimeLine timeLine = null;
@@ -298,6 +306,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryService() {
         Object object = null;
         List<Service> serviceList = new ArrayList<>();
@@ -317,6 +326,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryServiceById(String id) {
         Object object = null;
         Service service = null;
@@ -336,6 +346,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryType() {
         Object object = null;
         List<Type> typeList = new ArrayList<>();
@@ -355,6 +366,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryTypeById(String id) {
         Object object = null;
         Type type = null;
@@ -374,6 +386,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryCustomer() {
         Object object = null;
         List<Customer> customerList = new ArrayList<>();
@@ -400,6 +413,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryCustomerById(String id) {
         Object object = null;
         Customer customer = null;
@@ -426,6 +440,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryShipper() {
         Object object = null;
         List<Shipper> shipperList = new ArrayList<>();
@@ -451,6 +466,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryShipperById(String id) {
         Object object = null;
         Shipper shipper = null;
@@ -479,6 +495,7 @@ public class Repository {
     /*
        Get information about order(name instead of id),...etc
     */
+    @Override
     public Object queryOrder() {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
@@ -491,7 +508,7 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
@@ -529,6 +546,7 @@ public class Repository {
     /*
     By idOrder
      */
+    @Override
     public Object queryOrderByIdOrder(String idOrder) {
         Object object = null;
         OrderDetails orderDetails;
@@ -541,12 +559,12 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE idOrder = '" + idOrder + "';";
+                "   WHERE A.idOrder = '" + idOrder + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -581,6 +599,7 @@ public class Repository {
     /*
     By idCustomer( the same sender )
      */
+    @Override
     public Object queryAllOrderByIdCustomer(String idshopOrder) {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
@@ -593,12 +612,12 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE idshopOrder = '" + idshopOrder + "';";
+                "   WHERE A.idshopOrder = '" + idshopOrder + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -632,7 +651,8 @@ public class Repository {
     /*
     Same shipper
      */
-    public Object queryAllOrderByIdShipper(String idshipperOrder) {
+    @Override
+    public Object queryAllOrderByIdShipper(String id) {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
@@ -644,12 +664,12 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE idshipperOrder = '" + idshipperOrder + "';";
+                "   WHERE A.idshipperOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -683,6 +703,7 @@ public class Repository {
     /*
     See which orders have been approved or not
      */
+    @Override
     public Object queryAllOrderNotApproved() {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
@@ -695,12 +716,12 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE approveOrder = 0;";
+                "   WHERE A.approveOrder = 0;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -731,6 +752,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object queryAllOrderApproved() {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
@@ -743,12 +765,12 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE approveOrder = 1;";
+                "   WHERE A.approveOrder = 1;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -782,11 +804,28 @@ public class Repository {
     /*
     Admin approves all the order
      */
+    @Override
     public Object approveAllOrder() {
         Object object = null;
         String update = "UPDATE GHTK.Order as A\n" +
                 "SET A.approveOrder = 1 \n" +
                 "WHERE A.approveOrder = 0;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            object = new Success(true, rowsEffected + " order(s) have been approved");
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public Object approveOneOrder(String id) {
+        Object object = null;
+        String update = "UPDATE GHTK.Order as A\n" +
+                "SET A.approveOrder = 1 \n" +
+                "WHERE A.idOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -804,6 +843,7 @@ public class Repository {
     /*
     Shop abilities
      */
+    @Override
     public Object createOrder(Order order) throws SQLException {
         Object object = null;
         if (order == null) {
@@ -814,6 +854,8 @@ public class Repository {
                 "idtypeOrder, idtimeOrder, daysendOrder, nameOrder, weightOrder, costOrder," +
                 "nameReceiver, numberReceiver, addressReceiver, paymentOrder, approveOrder," +
                 "statusDeliver, isAvailable) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
         String lastRecord = "SELECT idOrder FROM GHTK.Order ORDER BY idOrder DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
@@ -833,7 +875,7 @@ public class Repository {
             preparedStatement.setString(4, order.getIdserviceOrder());
             preparedStatement.setString(5, order.getIdtypeOrder());
             preparedStatement.setString(6, order.getIdtimeOrder());
-            preparedStatement.setString(7, order.getDaysendOrder());
+            preparedStatement.setString(7, timeCreated);
             preparedStatement.setString(8, order.getNameOrder());
             preparedStatement.setDouble(9, order.getWeightOrder());
             preparedStatement.setInt(10, order.getCostOrder());
@@ -855,7 +897,8 @@ public class Repository {
     /*
     Editable details in Customer by Customer
      */
-    public Object updateAddress(String id, String newAddress) {
+    @Override
+    public Object updateAddressCustomer(String id, String newAddress) {
         Object object = null;
         String update = "UPDATE GHTK.Customer as A\n" +
                 "SET A.addressCustomer = '" + newAddress + "' \n" +
@@ -874,6 +917,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object updateNameShopCustomer(String id, String newNameShop) {
         Object object = null;
         String update = "UPDATE GHTK.Customer as A\n" +
@@ -893,6 +937,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object updateNameCustomer(String id, String newNameCustomer) {
         Object object = null;
         String update = "UPDATE GHTK.Customer as A\n" +
@@ -912,6 +957,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object updateAreaCustomer(String id, String newArea) {
         Object object = null;
         String update = "UPDATE GHTK.Customer as A\n" +
@@ -931,6 +977,7 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object updateNumberCustomer(String id, String newNumber) {
         Object object = null;
         String update = "UPDATE GHTK.Customer as A\n" +
@@ -950,20 +997,20 @@ public class Repository {
         return object;
     }
 
+    @Override
     public Object updateMailCustomer(String id, String newMail) {
         Object object = null;
 
         String update = "UPDATE GHTK.Customer as A\n" +
-                "SET A.areaCustomer = '" + newMail + "' \n" +
+                "SET A.mailCustomer = '" + newMail + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
 
-        boolean mailValidation = ValidateMail.validate(newMail);
-        if (mailValidation) {
+        if (ValidateMail.validate(newMail)) {
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(update);
                 int rowsEffected = preparedStatement.executeUpdate();
                 if (rowsEffected != 0) {
-                    object = new Success(true, "Area is updated for user " + id);
+                    object = new Success(true, "Mail is updated for user " + id);
                 } else {
                     object = new Error(false, "Unknown id :" + id);
                 }
@@ -977,8 +1024,13 @@ public class Repository {
         return object;
     }
 
-    public Object queryAllOrderOfCustomer(String id) {
-        Object object;
+
+    /*
+    Shipper abilities
+     */
+    @Override
+    public Object queryAllOrderAvailable() {
+        Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
         String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
@@ -989,12 +1041,12 @@ public class Repository {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
+                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "WHERE idshopOrder = '" + id + "';";
+                "   WHERE A.isAvailable = 1;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -1016,15 +1068,129 @@ public class Repository {
                         resultSet.getBoolean("approveOrder"),
                         resultSet.getBoolean("statusDeliver"),
                         resultSet.getBoolean("isAvailable"));
-//                System.out.println(orderDetails.toString());
                 orderDetailsList.add(orderDetails);
-//                System.out.println("===============");
-//                System.out.print(orderDetailsList.toString());
             }
             object = new Success(true, orderDetailsList.toString());
         } catch (SQLException e) {
             object = new Error(false, e.getMessage());
         }
+        return object;
+    }
+
+    @Override
+    public Object registerOrder(String idOrder, String idShipper) {
+        Object object = null;
+        String checkAvailable = "SELECT isAvailable FROM GHTK.Order WHERE idOrder = '" + idOrder + "';";
+        String register = "UPDATE GHTK.Order as A\n" +
+                "SET A.idshipperOrder = '" + idShipper + "' \n" +
+                "WHERE A.idOrder = '" + idOrder + "';";
+
+        try {
+            PreparedStatement checkStatement = connection.prepareStatement(checkAvailable);
+            ResultSet set = checkStatement.executeQuery();
+            int isAvailable = set.getInt(1);
+            if (isAvailable == 1) {
+                PreparedStatement takeStatement = connection.prepareStatement(register);
+                int row = takeStatement.executeUpdate();
+                if (row != 0) {
+                    object = new Success(true, "Order: " + idOrder + "is taken by shipper: " + idShipper);
+                } else {
+                    object = new Error(false, "No order with id: " + idOrder);
+                }
+            } else {
+                object = new Error(false, "Order: " + idOrder + " was taken before :(");
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+
+        return object;
+    }
+
+    @Override
+    public Object updateAddressShipper(String id, String newAddress) {
+        Object object = null;
+        String update = "UPDATE GHTK.Shipper as A\n" +
+                "SET A.addressShipper = '" + newAddress + "' \n" +
+                "WHERE A.idShipper = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Address is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public Object updateNameShipper(String id, String newNameShipper) {
+        Object object = null;
+        String update = "UPDATE GHTK.Shipper as A\n" +
+                "SET A.nameShipper = '" + newNameShipper + "' \n" +
+                "WHERE A.idShipper = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Name Shipper is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public Object updateNumberShipper(String id, String newNumber) {
+        Object object = null;
+        String update = "UPDATE GHTK.Shipper as A\n" +
+                "SET A.numberShipper = '" + newNumber + "' \n" +
+                "WHERE A.idShipper = '" + id + "';";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(update);
+            int rowsEffected = preparedStatement.executeUpdate();
+            if (rowsEffected != 0) {
+                object = new Success(true, "Number is updated for user " + id);
+            } else {
+                object = new Error(false, "Unknown id :" + id);
+            }
+        } catch (SQLException e) {
+            object = new Error(false, e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public Object updateMailShipper(String id, String newMail) {
+        Object object = null;
+
+        String update = "UPDATE GHTK.Shipper as A\n" +
+                "SET A.mailShipper = '" + newMail + "' \n" +
+                "WHERE A.idShipper = '" + id + "';";
+
+        if (ValidateMail.validate(newMail)) {
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(update);
+                int rowsEffected = preparedStatement.executeUpdate();
+                if (rowsEffected != 0) {
+                    object = new Success(true, "Mail is updated for user " + id);
+                } else {
+                    object = new Error(false, "Unknown id :" + id);
+                }
+            } catch (SQLException e) {
+                object = new Error(false, e.getMessage());
+            }
+        } else {
+            object = new Error(false, "Invalid mail format!");
+        }
+
         return object;
     }
 }
