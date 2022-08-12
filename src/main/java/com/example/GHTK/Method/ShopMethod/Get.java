@@ -1,17 +1,14 @@
 package com.example.GHTK.Method.ShopMethod;
 
 import com.example.GHTK.Repository.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("ShopRightGet")
-@RequestMapping(value = "shop/get")
+@RequestMapping(value = "{id}/get")
 public class Get {
-    @GetMapping(value = "all-order/{id}")
+    @GetMapping(value = "all-order")
     public Object getAllOrderOfCustomer(@PathVariable String id) {
         Repository repository = Repository.getRepository();
-        return repository.queryAllOrderOfCustomer(id);
+        return repository.queryAllOrderByIdCustomer(id);
     }
 }

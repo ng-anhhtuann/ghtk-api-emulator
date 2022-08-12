@@ -17,9 +17,6 @@ public class Order {
     @SerializedName("idtimeOrder")
     @Expose
     private String idtimeOrder;
-    @SerializedName("daysendOrder")
-    @Expose
-    private String daysendOrder;
     @SerializedName("nameOrder")
     @Expose
     private String nameOrder;
@@ -75,13 +72,6 @@ public class Order {
         this.idtimeOrder = idtimeOrder;
     }
 
-    public String getDaysendOrder() {
-        return daysendOrder;
-    }
-
-    public void setDaysendOrder(String daysendOrder) {
-        this.daysendOrder = daysendOrder;
-    }
 
     public String getNameOrder() {
         return nameOrder;
@@ -146,7 +136,6 @@ public class Order {
                 ", idserviceOrder='" + idserviceOrder + '\'' +
                 ", idtypeOrder='" + idtypeOrder + '\'' +
                 ", idtimeOrder='" + idtimeOrder + '\'' +
-                ", daysendOrder='" + daysendOrder + '\'' +
                 ", nameOrder='" + nameOrder + '\'' +
                 ", weightOrder=" + weightOrder +
                 ", costOrder=" + costOrder +
@@ -157,12 +146,11 @@ public class Order {
                 '}';
     }
 
-    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String daysendOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
+    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
         this.idshopOrder = idshopOrder;
         this.idserviceOrder = idserviceOrder;
         this.idtypeOrder = idtypeOrder;
         this.idtimeOrder = idtimeOrder;
-        this.daysendOrder = daysendOrder;
         this.nameOrder = nameOrder;
         this.weightOrder = weightOrder;
         this.costOrder = costOrder;

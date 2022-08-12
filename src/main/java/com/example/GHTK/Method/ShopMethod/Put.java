@@ -4,39 +4,39 @@ import com.example.GHTK.Repository.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("ShopRightPut")
-@RequestMapping(value = "shop/put")
+@RequestMapping(value = "{id}/update")
 public class Put {
-    @PutMapping(value = "address/{id}")
+    @PutMapping(value = "address-customer")
     public Object updateAddress(@PathVariable String id, @RequestBody String newThing) {
         Repository repository = Repository.getRepository();
-        return repository.updateAddress(id, newThing);
+        return repository.updateAddressCustomer(id, newThing);
     }
 
-    @PutMapping(value = "name-shop/{id}")
+    @PutMapping(value = "name-shop")
     public Object updateNameShop(@PathVariable String id, @RequestBody String newThing) {
         Repository repository = Repository.getRepository();
         return repository.updateNameShopCustomer(id, newThing);
     }
 
-    @PutMapping(value = "name-customer/{id}")
+    @PutMapping(value = "name-customer")
     public Object updateNameCustomer(@PathVariable String id, @RequestBody String newThing) {
         Repository repository = Repository.getRepository();
         return repository.updateNameCustomer(id, newThing);
     }
 
-    @PutMapping(value = "area/{id}")
+    @PutMapping(value = "area-customer")
     public Object updateArea(@PathVariable String id, @RequestBody String newThing) {
         Repository repository = Repository.getRepository();
         return repository.updateAreaCustomer(id, newThing);
     }
 
-    @PutMapping(value = "number/{id}")
+    @PutMapping(value = "number-customer")
     public Object updateNumber(@PathVariable String id, @RequestBody String newThing) {
         Repository repository = Repository.getRepository();
         return repository.updateNumberCustomer(id, newThing);
     }
 
-    @PutMapping(value = "mail/{id}")
+    @PutMapping(value = "mail-customer")
     public Object updateMail(@PathVariable String id, @RequestBody String newThing) {
         Repository repository = Repository.getRepository();
         return repository.updateMailCustomer(id, newThing);

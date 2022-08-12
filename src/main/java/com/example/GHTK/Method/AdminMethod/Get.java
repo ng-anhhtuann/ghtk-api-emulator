@@ -55,7 +55,7 @@ public class Get {
         return repository.queryAllOrderApproved();
     }
 
-    @GetMapping(value = "all-order-same-customer")
+    @GetMapping(value = "all-order-same-shop")
     public Object queryAllOrderByIdCustomer(@RequestBody String id) {
         Repository repository = getRepository();
         return repository.queryAllOrderByIdCustomer(id);
