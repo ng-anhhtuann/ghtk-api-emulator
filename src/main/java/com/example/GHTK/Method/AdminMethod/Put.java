@@ -1,6 +1,6 @@
 package com.example.GHTK.Method.AdminMethod;
 
-import com.example.GHTK.Repository.Repository;
+import com.example.GHTK.Repository.Repository.AdminRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class Put {
     @PutMapping(value = "approve-all-order")
     public Object approvedAllOrder(){
-        Repository repository = Repository.getRepository();
+        AdminRepository repository = AdminRepository.getRepository();
         return repository.approveAllOrder();
     }
     @PutMapping(value = "approve-one-order/{id}")
     public Object approvedOneOrder(@PathVariable String id){
-        Repository repository = Repository.getRepository();
+        AdminRepository repository = AdminRepository.getRepository();
         return repository.approveOneOrder(id);
     }
 }

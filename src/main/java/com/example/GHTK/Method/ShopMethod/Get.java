@@ -1,6 +1,6 @@
 package com.example.GHTK.Method.ShopMethod;
 
-import com.example.GHTK.Repository.Repository;
+import com.example.GHTK.Repository.Repository.ShopRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("ShopRightGet")
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class Get {
     @GetMapping(value = "all-order")
     public Object getAllOrderOfCustomer(@PathVariable String id) {
-        Repository repository = Repository.getRepository();
+        ShopRepository repository = ShopRepository.getRepository();
         return repository.queryAllOrderByIdCustomer(id);
     }
 }
