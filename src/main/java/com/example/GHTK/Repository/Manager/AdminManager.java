@@ -1,4 +1,4 @@
-package com.example.GHTK.Repository;
+package com.example.GHTK.Repository.Manager;
 
 import com.example.GHTK.Model.AdminRight.Area;
 import com.example.GHTK.Model.AdminRight.Service;
@@ -8,7 +8,7 @@ import com.example.GHTK.Model.UserRight.Order;
 
 import java.sql.SQLException;
 
-public interface RepoManager {
+public interface AdminManager {
     Object insert(Area area) throws SQLException;
 
     Object insert(Service service) throws SQLException;
@@ -57,29 +57,4 @@ public interface RepoManager {
 
     Object approveOneOrder(String id);
 
-    Object createOrder(Order order) throws SQLException;
-
-    Object updateAddressCustomer(String id, String newAddress);
-
-    Object updateNameShopCustomer(String id, String newNameShop);
-
-    Object updateNameCustomer(String id, String newNameCustomer);
-
-    Object updateAreaCustomer(String id, String newArea);
-
-    Object updateNumberCustomer(String id, String newNumber);
-
-    Object updateMailCustomer(String id, String newMail);
-
-    Object queryAllOrderAvailable();
-
-    Object registerOrder(String idOrder, String idShipper);
-
-    Object updateAddressShipper(String id, String newAddress);
-
-    Object updateNameShipper(String id, String newNameCustomer);
-
-    Object updateNumberShipper(String id, String newNumber);
-
-    Object updateMailShipper(String id, String newMail);
 }
