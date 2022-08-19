@@ -65,15 +65,12 @@ public class AdminRepository implements AdminManager {
                     Integer num = Integer.parseInt(tempId) + 1;
 
                     preparedStatement.setString(1, "KV" + num);
-                    preparedStatement.setString(2, area.getNameArea());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 } else {
                     preparedStatement.setString(1, "KV1");
-                    preparedStatement.setString(2, area.getNameArea());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 }
+                preparedStatement.setString(2, area.getNameArea());
+                preparedStatement.setString(3, timeCreated);
+                preparedStatement.executeUpdate();
                 object = new Response(true, area);
             }
         } catch (Exception e) {
@@ -112,15 +109,12 @@ public class AdminRepository implements AdminManager {
                     Integer num = Integer.parseInt(tempId) + 1;
 
                     preparedStatement.setString(1, "KV" + num);
-                    preparedStatement.setString(2, service.getNameService());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 } else {
                     preparedStatement.setString(1, "KV1");
-                    preparedStatement.setString(2, service.getNameService());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 }
+                preparedStatement.setString(2, service.getNameService());
+                preparedStatement.setString(3, timeCreated);
+                preparedStatement.executeUpdate();
                 object = new Response(true, service);
             }
         } catch (Exception e) {
@@ -159,15 +153,12 @@ public class AdminRepository implements AdminManager {
                     Integer num = Integer.parseInt(tempId) + 1;
 
                     preparedStatement.setString(1, "KV" + num);
-                    preparedStatement.setString(2, timeLine.getDescription());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 } else {
                     preparedStatement.setString(1, "KV1");
-                    preparedStatement.setString(2, timeLine.getDescription());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 }
+                preparedStatement.setString(2, timeLine.getDescription());
+                preparedStatement.setString(3, timeCreated);
+                preparedStatement.executeUpdate();
                 object = new Response(true, timeLine);
             }
         } catch (Exception e) {
@@ -206,15 +197,12 @@ public class AdminRepository implements AdminManager {
                     Integer num = Integer.parseInt(tempId) + 1;
 
                     preparedStatement.setString(1, "KV" + num);
-                    preparedStatement.setString(2, type.getNameProduct());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 } else {
                     preparedStatement.setString(1, "KV1");
-                    preparedStatement.setString(2, type.getNameProduct());
-                    preparedStatement.setString(3, timeCreated);
-                    preparedStatement.executeUpdate();
                 }
+                preparedStatement.setString(2, type.getNameProduct());
+                preparedStatement.setString(3, timeCreated);
+                preparedStatement.executeUpdate();
                 object = new Response(true, type);
             }
         } catch (Exception e) {
@@ -547,7 +535,7 @@ public class AdminRepository implements AdminManager {
     By idOrder
      */
     @Override
-    public Object queryOrderByIdOrder(String idOrder) {
+    public Object queryOrderByIdOrder(String id) {
         Object object = null;
         OrderDetails orderDetails;
 
@@ -564,7 +552,7 @@ public class AdminRepository implements AdminManager {
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "   WHERE A.idOrder = '" + idOrder + "';";
+                "   WHERE A.idOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -600,7 +588,7 @@ public class AdminRepository implements AdminManager {
     By idCustomer( the same sender )
      */
     @Override
-    public Object queryAllOrderByIdCustomer(String idshopOrder) {
+    public Object queryAllOrderByIdCustomer(String id) {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
@@ -617,7 +605,7 @@ public class AdminRepository implements AdminManager {
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
                 "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
                 "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "   WHERE A.idshopOrder = '" + idshopOrder + "';";
+                "   WHERE A.idshopOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -831,6 +819,107 @@ public class AdminRepository implements AdminManager {
             int rowsEffected = preparedStatement.executeUpdate();
             object = new Response(true, rowsEffected + " order(s) have been approved");
         } catch (SQLException e) {
+            object = new Response(false, e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public Object registerCustomer(Customer customer) throws SQLException {
+        Object object = null;
+        if (customer == null) {
+            object = new Response(false, "We dont accept null information here");
+        }
+
+        String insert = "INSERT INTO GHTK.Customer(idCustomer,nameCustomer,nameShop,areaCustomer,numberCustomer,addressCustomer,mailCustomer,taxCodeCustomer) VALUES (?,?,?,?,?,?,?,?)";
+
+        String lastRecord = "SELECT idCustomer FROM GHTK.Customer ORDER BY idCustomer DESC LIMIT 1;";
+        PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
+        ResultSet resultLastRecord = lastRecordPS.executeQuery();
+
+        String checkMail = "SELECT mailCustomer FROM GHTK.Customer WHERE mailCustomer = '" + customer.getMailCustomer() + "';";
+        PreparedStatement mail = connection.prepareStatement(checkMail);
+        ResultSet resultMail = mail.executeQuery();
+        String checkNumber = "SELECT numberCustomer FROM GHTK.Customer WHERE numberCustomer = '" + customer.getNumberCustomer() + "';";
+        PreparedStatement number = connection.prepareStatement(checkNumber);
+        ResultSet resultNumber = number.executeQuery();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
+            if (resultMail.next()) {
+                object = new Response(false, "This mail has already been in use");
+            } else if (resultNumber.next()) {
+                object = new Response(false, "This number has already been in use");
+            } else {
+                if (resultLastRecord.next()) {
+                    String tempId = resultLastRecord.getString(1).replaceAll("[a-zA-Z]+", "");
+                    Integer num = Integer.parseInt(tempId) + 1;
+
+                    preparedStatement.setString(1, "KH" + num);
+                } else {
+                    preparedStatement.setString(1, "KH1");
+                }
+                preparedStatement.setString(2, customer.getNameCustomer());
+                preparedStatement.setString(3, customer.getNameShop());
+                preparedStatement.setString(4, customer.getAreaCustomer());
+                preparedStatement.setString(5, customer.getNumberCustomer());
+                preparedStatement.setString(6, customer.getAddressCustomer());
+                preparedStatement.setString(7, customer.getMailCustomer());
+                preparedStatement.setString(8, customer.getTaxCodeCustomer());
+                preparedStatement.executeUpdate();
+                object = new Response(true, customer);
+            }
+        } catch (Exception e) {
+            object = new Response(false, e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public Object registerShipper(Shipper shipper) throws SQLException {
+        Object object = null;
+        if (shipper == null) {
+            object = new Response(false, "We dont accept null information here");
+        }
+
+        String insert = "INSERT INTO GHTK.Shipper(idShipper,nameShipper,bornShipper,genderShipper,numberShipper,addressShipper,mailShipper) VALUES (?,?,?,?,?,?,?)";
+
+        String lastRecord = "SELECT idShipper FROM GHTK.Shipper ORDER BY idShipper DESC LIMIT 1;";
+        PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
+        ResultSet resultLastRecord = lastRecordPS.executeQuery();
+
+        String checkMail = "SELECT mailShipper FROM GHTK.Shipper WHERE mailShipper = '" + shipper.getMailShipper() + "';";
+        String checkNumber = "SELECT numberShipper FROM GHTK.Shipper WHERE numberShipper = '" + shipper.getNumberShipper() + "';";
+
+        PreparedStatement mail = connection.prepareStatement(checkMail);
+        PreparedStatement number = connection.prepareStatement(checkNumber);
+
+        ResultSet resultMail = mail.executeQuery();
+        ResultSet resultNumber = number.executeQuery();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
+            if (resultMail.next()) {
+                object = new Response(false, "This mail has already been in use");
+            } else if (resultNumber.next()) {
+                object = new Response(false, "This number has already been in use");
+            } else {
+                if (resultLastRecord.next()) {
+                    String tempId = resultLastRecord.getString(1).replaceAll("[a-zA-Z]+", "");
+                    Integer num = Integer.parseInt(tempId) + 1;
+
+                    preparedStatement.setString(1, "TV" + num);
+                } else {
+                    preparedStatement.setString(1, "TV1");
+                }
+                preparedStatement.setString(2, shipper.getNameShipper());
+                preparedStatement.setString(3, shipper.getBornShipper());
+                preparedStatement.setBoolean(4, shipper.isGenderShipper());
+                preparedStatement.setString(5, shipper.getNumberShipper());
+                preparedStatement.setString(6, shipper.getAddressShipper());
+                preparedStatement.setString(7, shipper.getMailShipper());
+                preparedStatement.executeUpdate();
+                object = new Response(true, shipper);
+            }
+        } catch (Exception e) {
             object = new Response(false, e.getMessage());
         }
         return object;

@@ -44,12 +44,12 @@ public class Get {
         return repository.queryOrderByIdOrder(id);
     }
 
-    @GetMapping(value = "all-order-not-approve")
+    @GetMapping(value = "all-order-not-approved")
     public Object queryAllOrderNotApproved() {
         AdminRepository repository = getRepository();
         return repository.queryAllOrderNotApproved();
     }
-    @GetMapping(value = "all-order-approve")
+    @GetMapping(value = "all-order-approved")
     public Object queryAllOrderApproved() {
         AdminRepository repository = getRepository();
         return repository.queryAllOrderApproved();
