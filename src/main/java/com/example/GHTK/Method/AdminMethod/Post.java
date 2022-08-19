@@ -5,15 +5,14 @@ import com.example.GHTK.Model.AdminRight.Service;
 import com.example.GHTK.Model.AdminRight.TimeLine;
 import com.example.GHTK.Model.AdminRight.Type;
 import com.example.GHTK.Repository.Repository.AdminRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
 @RestController("AdminRightPost")
 @RequestMapping(value = "admin/post")
+@ResponseStatus(HttpStatus.CREATED)
 public class Post {
     @PostMapping(value = "area")
     public Object post(@RequestBody Area area) throws SQLException {

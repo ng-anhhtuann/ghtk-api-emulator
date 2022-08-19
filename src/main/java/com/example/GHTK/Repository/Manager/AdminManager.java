@@ -4,7 +4,9 @@ import com.example.GHTK.Model.AdminRight.Area;
 import com.example.GHTK.Model.AdminRight.Service;
 import com.example.GHTK.Model.AdminRight.TimeLine;
 import com.example.GHTK.Model.AdminRight.Type;
+import com.example.GHTK.Model.UserRight.Customer;
 import com.example.GHTK.Model.UserRight.Order;
+import com.example.GHTK.Model.UserRight.Shipper;
 
 import java.sql.SQLException;
 
@@ -57,4 +59,6 @@ public interface AdminManager {
 
     Object approveOneOrder(String id);
 
+    Object registerCustomer(Customer customer) throws SQLException;
+    Object registerShipper(Shipper shipper) throws SQLException;
 }

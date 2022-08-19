@@ -1,6 +1,5 @@
 package com.example.GHTK.Method.ShipperMethod;
 
-import com.example.GHTK.Repository.Repository.AdminRepository;
 import com.example.GHTK.Repository.Repository.ShipperRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,7 @@ public class Get {
         ShipperRepository repository = ShipperRepository.getRepository();
         return repository.queryAllOrderAvailable();
     }
+
     @GetMapping(value = "all-order-registered")
     public Object getAllOrderRegistered(@PathVariable String id) {
         ShipperRepository repository = ShipperRepository.getRepository();
