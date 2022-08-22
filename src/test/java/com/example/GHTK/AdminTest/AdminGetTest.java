@@ -1,6 +1,9 @@
 package com.example.GHTK.AdminTest;
 
 import com.example.GHTK.Model.AdminRight.Area;
+import com.example.GHTK.Model.AdminRight.Service;
+import com.example.GHTK.Model.AdminRight.TimeLine;
+import com.example.GHTK.Model.AdminRight.Type;
 import com.example.GHTK.Model.Custom.OrderDetails;
 import com.example.GHTK.Model.Status.Response;
 import com.example.GHTK.Model.UserRight.Customer;
@@ -8,6 +11,7 @@ import com.example.GHTK.Model.UserRight.Order;
 import com.example.GHTK.Model.UserRight.Shipper;
 import com.example.GHTK.Repository.Repository.AdminRepository;
 import com.google.gson.Gson;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,13 +23,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.mockito.BDDMockito.*;
@@ -38,9 +46,7 @@ public class AdminGetTest {
     @Autowired
     private MockMvc mockMvc;
     @Mock
-    private AdminRepository adminRepository;
-    //    @Autowired
-//    private ObjectMapper objectMapper;
+    private AdminRepository adminRepository = new AdminRepository();
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -210,5 +216,137 @@ public class AdminGetTest {
                 .andExpect(jsonPath("$.object", is(list)));
     }
 
-    
+    @Test
+    public void methodGetAllArea_ShouldReturnAreaList() throws Exception {
+
+        List<Area> list = new ArrayList<>();
+        list.add(new Area("Son Tra"));
+        list.add(new Area("Go Vap"));
+        Response response = new Response(true, list);
+        given(adminRepository.queryArea()).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/all-area"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains("Go Vap"));
+    }
+
+    @Test
+    public void methodGetAreaById_ShouldReturnArea() throws Exception {
+        Area area = new Area("Son Tra");
+        Response response = new Response(true, area);
+        String id = "KV1";
+        given(adminRepository.queryAreaById(id)).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/area-by-id").param("id", id))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains(area.getNameArea()));
+    }
+
+    @Test
+    public void methodGetAllTime_ShouldReturnTimeList() throws Exception {
+
+        List<TimeLine> list = new ArrayList<>();
+        list.add(new TimeLine("7pm-9pm"));
+        list.add(new TimeLine("3pm-5pm"));
+        list.add(new TimeLine("1pm-3pm"));
+
+        Response response = new Response(true, list);
+        given(adminRepository.queryTime()).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/all-time"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains("3pm-5pm"));   //mid pos
+    }
+
+    @Test
+    public void methodGetTimeById_ShouldReturnTime() throws Exception {
+        TimeLine area = new TimeLine("7pm-9pm");
+        Response response = new Response(true, area);
+        String id = "TG1";
+        given(adminRepository.queryTimeById(id)).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/time-by-id").param("id", id))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains(area.getDescription()));
+    }
+
+    @Test
+    public void methodGetAllService_ShouldReturnServiceList() throws Exception {
+
+        List<Service> list = new ArrayList<>();
+        list.add(new Service("Hang Nha nuoc free"));
+        list.add(new Service("Nguoi nhan tra phi"));
+        list.add(new Service("Nguoi gui tra phi"));
+
+        Response response = new Response(true, list);
+        given(adminRepository.queryService()).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/all-service"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains("Nguoi nhan tra phi"));   //mid pos
+    }
+
+    @Test
+    public void methodGetServiceById_ShouldReturnService() throws Exception {
+        Service area = new Service("Hang Nha nuoc free");
+        Response response = new Response(true, area);
+        String id = "DV2";
+        given(adminRepository.queryServiceById(id)).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/service-by-id").param("id", id))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains(area.getNameService()));
+    }
+
+    @Test
+    public void methodGetAllType_ShouldReturnTypeList() throws Exception {
+
+        List<Type> list = new ArrayList<>();
+        list.add(new Type("Buu kien"));
+        list.add(new Type("Quan ao"));
+
+        Response response = new Response(true, list);
+        given(adminRepository.queryType()).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/all-type"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains("Buu kien"));   //last pos
+    }
+
+    @Test
+    public void methodGetTypeById_ShouldReturnType() throws Exception {
+        Type area = new Type("Buu kien");
+        Response response = new Response(true, area);
+        String id = "MH1";
+        given(adminRepository.queryTypeById(id)).willReturn(response);
+
+        assertTrue(mockMvc.perform(get("/admin/get/type-by-id").param("id", id))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString()
+                .contains(area.getNameProduct()));
+    }
+
 }

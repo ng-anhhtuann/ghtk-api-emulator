@@ -86,7 +86,7 @@ public class Get {
     }
 
     @GetMapping(value = "time-by-id")
-    public Object getTimeById(@RequestBody String id) {
+    public Object getTimeById(@RequestParam String id) {
         AdminRepository repository = getRepository();
         return repository.queryTimeById(id);
     }

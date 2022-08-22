@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "{id}/update")
 public class Put {
     @PutMapping(value = "take-order")
-    public Object getAllOrderAvailable(@PathVariable String id, @RequestBody String idOrder) {
+    public Object registerOrder(@RequestBody String idOrder, @PathVariable String id) {
         ShipperRepository repository = ShipperRepository.getRepository();
         return repository.registerOrder(idOrder,id);
     }

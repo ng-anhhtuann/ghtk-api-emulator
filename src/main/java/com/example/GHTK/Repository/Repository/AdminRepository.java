@@ -108,9 +108,9 @@ public class AdminRepository implements AdminManager {
                     String tempId = resultLastRecord.getString(1).replaceAll("[a-zA-Z]+", "");
                     Integer num = Integer.parseInt(tempId) + 1;
 
-                    preparedStatement.setString(1, "KV" + num);
+                    preparedStatement.setString(1, "DV" + num);
                 } else {
-                    preparedStatement.setString(1, "KV1");
+                    preparedStatement.setString(1, "DV1");
                 }
                 preparedStatement.setString(2, service.getNameService());
                 preparedStatement.setString(3, timeCreated);
@@ -152,9 +152,9 @@ public class AdminRepository implements AdminManager {
                     String tempId = resultLastRecord.getString(1).replaceAll("[a-zA-Z]+", "");
                     Integer num = Integer.parseInt(tempId) + 1;
 
-                    preparedStatement.setString(1, "KV" + num);
+                    preparedStatement.setString(1, "TG" + num);
                 } else {
-                    preparedStatement.setString(1, "KV1");
+                    preparedStatement.setString(1, "TG1");
                 }
                 preparedStatement.setString(2, timeLine.getDescription());
                 preparedStatement.setString(3, timeCreated);
@@ -196,9 +196,9 @@ public class AdminRepository implements AdminManager {
                     String tempId = resultLastRecord.getString(1).replaceAll("[a-zA-Z]+", "");
                     Integer num = Integer.parseInt(tempId) + 1;
 
-                    preparedStatement.setString(1, "KV" + num);
+                    preparedStatement.setString(1, "MH" + num);
                 } else {
-                    preparedStatement.setString(1, "KV1");
+                    preparedStatement.setString(1, "MH1");
                 }
                 preparedStatement.setString(2, type.getNameProduct());
                 preparedStatement.setString(3, timeCreated);
@@ -817,7 +817,12 @@ public class AdminRepository implements AdminManager {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
-            object = new Response(true, rowsEffected + " order(s) have been approved");
+            if (rowsEffected == 1){
+                object = new Response(true, rowsEffected + " order(s) have been approved");
+            } else {
+                object = new Response(false, "No order with this id");
+            }
+
         } catch (SQLException e) {
             object = new Response(false, e.getMessage());
         }
