@@ -5,8 +5,14 @@ import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@PropertySources({
+        @PropertySource("classpath:application.properties"),
+        @PropertySource("classpath:system.properties")
+})
 @OpenAPIDefinition(info = @Info(title = "API connected to MySQL", version = "1.0", description = "Senior Title"))
 public class GhtkApplication {
 
