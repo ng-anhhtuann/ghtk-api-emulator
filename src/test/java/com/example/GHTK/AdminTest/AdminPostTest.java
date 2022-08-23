@@ -1,6 +1,5 @@
 package com.example.GHTK.AdminTest;
 
-import com.example.GHTK.AdminTest.AdminTestController;
 import com.example.GHTK.Model.AdminRight.Area;
 import com.example.GHTK.Model.AdminRight.Service;
 import com.example.GHTK.Model.AdminRight.TimeLine;
@@ -52,7 +51,7 @@ public class AdminPostTest {
         given(adminRepository.insert(area))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        ResultActions response = (ResultActions) AdminTestController.PostResultActions(area, "/admin/post/area", mockMvc, objectMapper);
+        ResultActions response = (ResultActions) AdminTestUtility.PostResultActions(area, "/admin/post/area", mockMvc, objectMapper);
 
         response.andDo(print()).
                 andExpect(status().isCreated())
@@ -68,7 +67,7 @@ public class AdminPostTest {
         given(adminRepository.insert(service))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        ResultActions response = (ResultActions) AdminTestController.PostResultActions(service, "/admin/post/service", mockMvc, objectMapper);
+        ResultActions response = (ResultActions) AdminTestUtility.PostResultActions(service, "/admin/post/service", mockMvc, objectMapper);
 
         response.andDo(print()).
                 andExpect(status().isCreated())
@@ -83,7 +82,7 @@ public class AdminPostTest {
         given(adminRepository.insert(type))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        ResultActions response = (ResultActions) AdminTestController.PostResultActions(type, "/admin/post/type", mockMvc, objectMapper);
+        ResultActions response = (ResultActions) AdminTestUtility.PostResultActions(type, "/admin/post/type", mockMvc, objectMapper);
 
         response.andDo(print()).
                 andExpect(status().isCreated())
@@ -99,7 +98,7 @@ public class AdminPostTest {
         given(adminRepository.insert(timeLine))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        ResultActions response = (ResultActions) AdminTestController.PostResultActions(timeLine, "/admin/post/timeLine", mockMvc, objectMapper);
+        ResultActions response = (ResultActions) AdminTestUtility.PostResultActions(timeLine, "/admin/post/timeLine", mockMvc, objectMapper);
 
         response.andDo(print()).
                 andExpect(status().isCreated())
