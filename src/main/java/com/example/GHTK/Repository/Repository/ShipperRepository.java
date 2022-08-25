@@ -41,7 +41,7 @@ public class ShipperRepository implements ShipperManager {
                 "    , A.approve_order as approve_order, A.status_deliver_order as status_deliver_order, A.available_order as available_order\n" +
                 "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.id_shop_order = B.id_customer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.id_service_order = C.id_service\n" +
-                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_orderOrder = D.id_shipper_order\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_order = D.id_shipper_order\n" +
                 "                     INNER JOIN GHTK.timeline as E ON A.id_time_order = E.id_time\n" +
                 "                     INNER JOIN GHTK.types as F ON A.id_type_order = F.id_type" +
                 "   WHERE A.available_order = 1;";
@@ -90,10 +90,10 @@ public class ShipperRepository implements ShipperManager {
                 "    , A.approve_order as approve_order, A.status_deliver_order as status_deliver_order, A.available_order as available_order\n" +
                 "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.id_shop_order = B.id_customer\n" +
                 "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.id_service_order = C.id_service\n" +
-                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_orderOrder = D.id_shipper_order\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_order = D.id_shipper_order\n" +
                 "                     INNER JOIN GHTK.timeline as E ON A.id_time_order = E.id_time\n" +
                 "                     INNER JOIN GHTK.types as F ON A.id_type_order = F.id_type" +
-                "   WHERE A.id_shipper_orderOrder = '" + id + "';";
+                "   WHERE A.id_shipper_order = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -129,7 +129,7 @@ public class ShipperRepository implements ShipperManager {
         Object object = null;
         String checkAvailable = "SELECT available_order FROM GHTK.orders WHERE id_order = '" + id_order + "';";
         String register = "UPDATE GHTK.orders as A\n" +
-                "SET A.id_shipper_orderOrder = '" + id_shipper_order + "' \n" +
+                "SET A.id_shipper_order = '" + id_shipper_order + "' \n" +
                 "WHERE A.id_order = '" + id_order + "';";
 
         try {

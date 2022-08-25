@@ -146,4 +146,7 @@ public class Order {
         this.addressReceiver = addressReceiver;
         this.paymentOrder = paymentOrder;
     }
+
+    public Order() {
+    }
 }

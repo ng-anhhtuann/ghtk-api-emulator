@@ -39,7 +39,7 @@ public class ShopRepository implements ShopManager {
                 "    , A.name_receiver_order as name_receiver_order, A.number_receiver_order as number_receiver_order\n" +
                 "    , A.address_receiver_order as address_receiver_order, D.name_shipper as name_shipper\n" +
                 "    , D.number_shipper as number_shipper, A.name_order as name_order\n" +
-                "    , A.cost_order as cost_order, F.nameType as typeOrder\n" +
+                "    , A.cost_order as cost_order, F.name_type as typeOrder\n" +
                 "    , E.description_time as description_time, C.name_service as name_service\n" +
                 "    , A.approve_order as approve_order, A.status_deliver_order as status_deliver_order, A.available_order as available_order\n" +
                 "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.id_shop_order = B.id_customer\n" +

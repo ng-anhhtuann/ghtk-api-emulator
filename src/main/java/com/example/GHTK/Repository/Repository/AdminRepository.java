@@ -390,7 +390,7 @@ public class AdminRepository implements AdminManager {
                         resultSet.getString("area_customer"),
                         resultSet.getString("number_customer"),
                         resultSet.getString("address_customer"),
-                        resultSet.getString("mailCustomer"),
+                        resultSet.getString("mail_customer"),
                         resultSet.getString("taxcode_customer"));
                 customerList.add(customer);
             }
@@ -416,7 +416,7 @@ public class AdminRepository implements AdminManager {
                         resultSet.getString("area_customer"),
                         resultSet.getString("number_customer"),
                         resultSet.getString("address_customer"),
-                        resultSet.getString("mailCustomer"),
+                        resultSet.getString("mail_customer"),
                         resultSet.getString("taxcode_customer"));
                 object = new Response(true, customer);
             } else {
@@ -838,13 +838,13 @@ public class AdminRepository implements AdminManager {
 
         String insert = "INSERT INTO GHTK.customers(id_customer,name_customer,name_shop_customer" +
                                                     ",area_customer,number_customer" +
-                                                    ",address_customer,mailCustomer,taxcode_customer) VALUES (?,?,?,?,?,?,?,?)";
+                                                    ",address_customer,mail_customer,taxcode_customer) VALUES (?,?,?,?,?,?,?,?)";
 
         String lastRecord = "SELECT id_customer FROM GHTK.customers ORDER BY id_customer DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String checkMail = "SELECT mailCustomer FROM GHTK.customers WHERE mailCustomer = '" + customer.getMailCustomer() + "';";
+        String checkMail = "SELECT mail_customer FROM GHTK.customers WHERE mail_customer = '" + customer.getMailCustomer() + "';";
         PreparedStatement mail = connection.prepareStatement(checkMail);
         ResultSet resultMail = mail.executeQuery();
         String checkNumber = "SELECT number_customer FROM GHTK.customers WHERE number_customer = '" + customer.getNumberCustomer() + "';";
