@@ -22,7 +22,7 @@ public class Order {
     private String nameOrder;
     @SerializedName("weightOrder")
     @Expose
-    private float weightOrder;
+    private double weightOrder;
     @SerializedName("costOrder")
     @Expose
     private int costOrder;
@@ -81,11 +81,11 @@ public class Order {
         this.nameOrder = nameOrder;
     }
 
-    public float getWeightOrder() {
+    public double getWeightOrder() {
         return weightOrder;
     }
 
-    public void setWeightOrder(float weightOrder) {
+    public void setWeightOrder(double weightOrder) {
         this.weightOrder = weightOrder;
     }
 
@@ -146,7 +146,7 @@ public class Order {
                 '}';
     }
 
-    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String nameOrder, float weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
+    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String nameOrder, double weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
         this.idshopOrder = idshopOrder;
         this.idserviceOrder = idserviceOrder;
         this.idtypeOrder = idtypeOrder;

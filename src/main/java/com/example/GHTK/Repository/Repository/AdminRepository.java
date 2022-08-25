@@ -46,13 +46,13 @@ public class AdminRepository implements AdminManager {
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        String insert = "INSERT INTO GHTK.Area(idArea,nameArea,timeCreated) VALUES (?,?,?)";
+        String insert = "INSERT INTO GHTK.areas(idArea,nameArea,timeCreated) VALUES (?,?,?)";
 
-        String lastRecord = "SELECT idArea FROM GHTK.Area ORDER BY idArea DESC LIMIT 1;";
+        String lastRecord = "SELECT idArea FROM GHTK.areas ORDER BY idArea DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String check = "SELECT nameArea FROM GHTK.Area WHERE nameArea = '" + area.getNameArea() + "';";
+        String check = "SELECT nameArea FROM GHTK.areas WHERE nameArea = '" + area.getNameArea() + "';";
         PreparedStatement checkPS = connection.prepareStatement(check);
         ResultSet resultCheck = checkPS.executeQuery();
 
@@ -90,13 +90,13 @@ public class AdminRepository implements AdminManager {
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        String insert = "INSERT INTO GHTK.Service(idService,nameService,timeCreated) VALUES (?,?,?)";
+        String insert = "INSERT INTO GHTK.services(idService,nameService,timeCreated) VALUES (?,?,?)";
 
-        String lastRecord = "SELECT idService FROM GHTK.Service ORDER BY idService DESC LIMIT 1;";
+        String lastRecord = "SELECT idService FROM GHTK.services ORDER BY idService DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String check = "SELECT nameService FROM GHTK.Service WHERE nameService = '" + service.getNameService() + "';";
+        String check = "SELECT nameService FROM GHTK.services WHERE nameService = '" + service.getNameService() + "';";
         PreparedStatement checkPS = connection.prepareStatement(check);
         ResultSet resultCheck = checkPS.executeQuery();
 
@@ -134,13 +134,13 @@ public class AdminRepository implements AdminManager {
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        String insert = "INSERT INTO GHTK.Time(idTime,descriptionTime,timeCreated) VALUES (?,?,?)";
+        String insert = "INSERT INTO GHTK.timeline(idTime,descriptionTime,timeCreated) VALUES (?,?,?)";
 
-        String lastRecord = "SELECT idTime FROM GHTK.Time ORDER BY idTime DESC LIMIT 1;";
+        String lastRecord = "SELECT idTime FROM GHTK.timeline ORDER BY idTime DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String check = "SELECT descriptionTime FROM GHTK.Time WHERE descriptionTime = '" + timeLine.getDescription() + "';";
+        String check = "SELECT descriptionTime FROM GHTK.timeline WHERE descriptionTime = '" + timeLine.getDescription() + "';";
         PreparedStatement checkPS = connection.prepareStatement(check);
         ResultSet resultCheck = checkPS.executeQuery();
 
@@ -178,13 +178,13 @@ public class AdminRepository implements AdminManager {
          */
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        String insert = "INSERT INTO GHTK.Type(idType,nameType,timeCreated) VALUES (?,?,?)";
+        String insert = "INSERT INTO GHTK.types(idType,nameType,timeCreated) VALUES (?,?,?)";
 
-        String lastRecord = "SELECT idType FROM GHTK.Type ORDER BY idType DESC LIMIT 1;";
+        String lastRecord = "SELECT idType FROM GHTK.types ORDER BY idType DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String check = "SELECT nameType FROM GHTK.Type WHERE nameType = '" + type.getNameProduct() + "';";
+        String check = "SELECT nameType FROM GHTK.types WHERE nameType = '" + type.getNameProduct() + "';";
         PreparedStatement checkPS = connection.prepareStatement(check);
         ResultSet resultCheck = checkPS.executeQuery();
 
@@ -219,7 +219,7 @@ public class AdminRepository implements AdminManager {
         Object object = null;
         List<Area> areaList = new ArrayList<>();
 
-        String query = "SELECT * FROM GHTK.Area;";
+        String query = "SELECT * FROM GHTK.areas;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -238,7 +238,7 @@ public class AdminRepository implements AdminManager {
     public Object queryAreaById(String idArea) {
         Object object = null;
         Area area = null;
-        String query = "SELECT * FROM GHTK.Area WHERE idArea ='" + idArea + "';";
+        String query = "SELECT * FROM GHTK.areas WHERE idArea ='" + idArea + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -259,7 +259,7 @@ public class AdminRepository implements AdminManager {
         Object object;
         List<TimeLine> timeList = new ArrayList<>();
 
-        String query = "SELECT * FROM GHTK.Time;";
+        String query = "SELECT * FROM GHTK.timeline;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -278,7 +278,7 @@ public class AdminRepository implements AdminManager {
     public Object queryTimeById(String id) {
         Object object = null;
         TimeLine timeLine = null;
-        String query = "SELECT * FROM GHTK.Time WHERE idTime ='" + id + "';";
+        String query = "SELECT * FROM GHTK.timeline WHERE idTime ='" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -299,7 +299,7 @@ public class AdminRepository implements AdminManager {
         Object object = null;
         List<Service> serviceList = new ArrayList<>();
 
-        String query = "SELECT * FROM GHTK.Service;";
+        String query = "SELECT * FROM GHTK.services;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -318,7 +318,7 @@ public class AdminRepository implements AdminManager {
     public Object queryServiceById(String id) {
         Object object = null;
         Service service = null;
-        String query = "SELECT * FROM GHTK.Service WHERE idService ='" + id + "';";
+        String query = "SELECT * FROM GHTK.services WHERE idService ='" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -339,7 +339,7 @@ public class AdminRepository implements AdminManager {
         Object object = null;
         List<Type> typeList = new ArrayList<>();
 
-        String query = "SELECT * FROM GHTK.Type;";
+        String query = "SELECT * FROM GHTK.types;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -358,7 +358,7 @@ public class AdminRepository implements AdminManager {
     public Object queryTypeById(String id) {
         Object object = null;
         Type type = null;
-        String query = "SELECT * FROM GHTK.Type WHERE idType ='" + id + "';";
+        String query = "SELECT * FROM GHTK.types WHERE idType ='" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -379,7 +379,7 @@ public class AdminRepository implements AdminManager {
         Object object = null;
         List<Customer> customerList = new ArrayList<>();
 
-        String query = "SELECT * FROM GHTK.Customer;";
+        String query = "SELECT * FROM GHTK.customers;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -405,7 +405,7 @@ public class AdminRepository implements AdminManager {
     public Object queryCustomerById(String id) {
         Object object = null;
         Customer customer = null;
-        String query = "SELECT * FROM GHTK.Customer WHERE idCustomer ='" + id + "';";
+        String query = "SELECT * FROM GHTK.customers WHERE idCustomer ='" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -433,7 +433,7 @@ public class AdminRepository implements AdminManager {
         Object object = null;
         List<Shipper> shipperList = new ArrayList<>();
 
-        String query = "SELECT * FROM GHTK.Shipper;";
+        String query = "SELECT * FROM GHTK.shippers;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -458,7 +458,7 @@ public class AdminRepository implements AdminManager {
     public Object queryShipperById(String id) {
         Object object = null;
         Shipper shipper = null;
-        String query = "SELECT * FROM GHTK.Shipper WHERE idShipper ='" + id + "';";
+        String query = "SELECT * FROM GHTK.shippers WHERE idShipper ='" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -496,11 +496,11 @@ public class AdminRepository implements AdminManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType;";
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -547,11 +547,11 @@ public class AdminRepository implements AdminManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
                 "   WHERE A.idOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -600,11 +600,11 @@ public class AdminRepository implements AdminManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
                 "   WHERE A.idshopOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -652,11 +652,11 @@ public class AdminRepository implements AdminManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
                 "   WHERE A.idshipperOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -704,11 +704,11 @@ public class AdminRepository implements AdminManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
                 "   WHERE A.approveOrder = 0;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -753,11 +753,11 @@ public class AdminRepository implements AdminManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
                 "   WHERE A.approveOrder = 1;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -795,7 +795,7 @@ public class AdminRepository implements AdminManager {
     @Override
     public Object approveAllOrder() {
         Object object = null;
-        String update = "UPDATE GHTK.Order as A\n" +
+        String update = "UPDATE GHTK.orders as A\n" +
                 "SET A.approveOrder = 1 \n" +
                 "WHERE A.approveOrder = 0;";
         try {
@@ -811,7 +811,7 @@ public class AdminRepository implements AdminManager {
     @Override
     public Object approveOneOrder(String id) {
         Object object = null;
-        String update = "UPDATE GHTK.Order as A\n" +
+        String update = "UPDATE GHTK.orders as A\n" +
                 "SET A.approveOrder = 1 \n" +
                 "WHERE A.idOrder = '" + id + "';";
         try {
@@ -836,16 +836,18 @@ public class AdminRepository implements AdminManager {
             object = new Response(false, "We dont accept null information here");
         }
 
-        String insert = "INSERT INTO GHTK.Customer(idCustomer,nameCustomer,nameShop,areaCustomer,numberCustomer,addressCustomer,mailCustomer,taxCodeCustomer) VALUES (?,?,?,?,?,?,?,?)";
+        String insert = "INSERT INTO GHTK.customers(idCustomer,nameCustomer,nameShop" +
+                                                    ",areaCustomer,numberCustomer" +
+                                                    ",addressCustomer,mailCustomer,taxCodeCustomer) VALUES (?,?,?,?,?,?,?,?)";
 
-        String lastRecord = "SELECT idCustomer FROM GHTK.Customer ORDER BY idCustomer DESC LIMIT 1;";
+        String lastRecord = "SELECT idCustomer FROM GHTK.customers ORDER BY idCustomer DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String checkMail = "SELECT mailCustomer FROM GHTK.Customer WHERE mailCustomer = '" + customer.getMailCustomer() + "';";
+        String checkMail = "SELECT mailCustomer FROM GHTK.customers WHERE mailCustomer = '" + customer.getMailCustomer() + "';";
         PreparedStatement mail = connection.prepareStatement(checkMail);
         ResultSet resultMail = mail.executeQuery();
-        String checkNumber = "SELECT numberCustomer FROM GHTK.Customer WHERE numberCustomer = '" + customer.getNumberCustomer() + "';";
+        String checkNumber = "SELECT numberCustomer FROM GHTK.customers WHERE numberCustomer = '" + customer.getNumberCustomer() + "';";
         PreparedStatement number = connection.prepareStatement(checkNumber);
         ResultSet resultNumber = number.executeQuery();
 
@@ -886,14 +888,14 @@ public class AdminRepository implements AdminManager {
             object = new Response(false, "We dont accept null information here");
         }
 
-        String insert = "INSERT INTO GHTK.Shipper(idShipper,nameShipper,bornShipper,genderShipper,numberShipper,addressShipper,mailShipper) VALUES (?,?,?,?,?,?,?)";
+        String insert = "INSERT INTO GHTK.shippers(idShipper,nameShipper,bornShipper,genderShipper,numberShipper,addressShipper,mailShipper) VALUES (?,?,?,?,?,?,?)";
 
-        String lastRecord = "SELECT idShipper FROM GHTK.Shipper ORDER BY idShipper DESC LIMIT 1;";
+        String lastRecord = "SELECT idShipper FROM GHTK.shippers ORDER BY idShipper DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
-        String checkMail = "SELECT mailShipper FROM GHTK.Shipper WHERE mailShipper = '" + shipper.getMailShipper() + "';";
-        String checkNumber = "SELECT numberShipper FROM GHTK.Shipper WHERE numberShipper = '" + shipper.getNumberShipper() + "';";
+        String checkMail = "SELECT mailShipper FROM GHTK.shippers WHERE mailShipper = '" + shipper.getMailShipper() + "';";
+        String checkNumber = "SELECT numberShipper FROM GHTK.shippers WHERE numberShipper = '" + shipper.getNumberShipper() + "';";
 
         PreparedStatement mail = connection.prepareStatement(checkMail);
         PreparedStatement number = connection.prepareStatement(checkNumber);

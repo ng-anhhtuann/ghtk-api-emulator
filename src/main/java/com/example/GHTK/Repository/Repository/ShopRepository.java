@@ -42,11 +42,11 @@ public class ShopRepository implements ShopManager {
                 "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
                 "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
                 "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
                 "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
+                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
+                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
                 "   WHERE A.idshopOrder = '" + idshopOrder + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -85,14 +85,14 @@ public class ShopRepository implements ShopManager {
             object = new Response(false, "We dont accept null information here");
         }
 
-        String insert = "INSERT INTO GHTK.Order(idOrder, idshopOrder, idshipperOrder, idserviceOrder," +
+        String insert = "INSERT INTO GHTK.orders(idOrder, idshopOrder, idshipperOrder, idserviceOrder," +
                 "idtypeOrder, idtimeOrder, daysendOrder, nameOrder, weightOrder, costOrder," +
                 "nameReceiver, numberReceiver, addressReceiver, paymentOrder, approveOrder," +
                 "statusDeliver, isAvailable) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        String lastRecord = "SELECT idOrder FROM GHTK.Order ORDER BY idOrder DESC LIMIT 1;";
+        String lastRecord = "SELECT idOrder FROM GHTK.orders ORDER BY idOrder DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
@@ -132,7 +132,7 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateAddressCustomer(String id, String newAddress) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.addressCustomer = '" + newAddress + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
         try {
@@ -152,7 +152,7 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateNameShopCustomer(String id, String newNameShop) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.nameShop = '" + newNameShop + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
         try {
@@ -172,7 +172,7 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateNameCustomer(String id, String newNameCustomer) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.nameCustomer = '" + newNameCustomer + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
         try {
@@ -192,7 +192,7 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateAreaCustomer(String id, String newArea) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.areaCustomer = '" + newArea + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
         try {
@@ -212,7 +212,7 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateNumberCustomer(String id, String newNumber) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.numberCustomer = '" + newNumber + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
         try {
@@ -233,7 +233,7 @@ public class ShopRepository implements ShopManager {
     public Object updateMailCustomer(String id, String newMail) {
         Object object = null;
 
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.mailCustomer = '" + newMail + "' \n" +
                 "WHERE A.idCustomer = '" + id + "';";
 
