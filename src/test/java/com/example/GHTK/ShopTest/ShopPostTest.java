@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -47,12 +46,12 @@ public class ShopPostTest {
 
     @Test
     public void methodPostNewOrder_ShouldReturnTrue() throws Exception {
-        Order order = new Order("KH2", "DV2", "MH1", "TG2", "Vaegabond"
+        Order order = new Order( "DV2", "MH1", "TG2", "Vaegabond"
                 , 3.5f, 2000000, "Ai Ma Biet", "0936158274", "So 123 Cau giay"
                 , false);
-        String id = order.getIdshopOrder();
+        String id = "KH1";
         Response response = new Response(true, order);
-        given(shopRepository.createOrder(order)).willReturn(response);
+        given(shopRepository.createOrder(id,order)).willReturn(response);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

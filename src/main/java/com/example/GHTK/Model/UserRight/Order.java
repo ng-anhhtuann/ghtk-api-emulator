@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Order {
 
-    @SerializedName("idshopOrder")
-    @Expose
-    private String idshopOrder;
     @SerializedName("idserviceOrder")
     @Expose
     private String idserviceOrder;
@@ -39,14 +36,6 @@ public class Order {
     @Expose
     private boolean paymentOrder;           //0: banking ~ 1:cash
 
-
-    public String getIdshopOrder() {
-        return idshopOrder;
-    }
-
-    public void setIdshopOrder(String idshopOrder) {
-        this.idshopOrder = idshopOrder;
-    }
 
     public String getIdserviceOrder() {
         return idserviceOrder;
@@ -132,8 +121,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "idshopOrder='" + idshopOrder + '\'' +
-                ", idserviceOrder='" + idserviceOrder + '\'' +
+                "idserviceOrder='" + idserviceOrder + '\'' +
                 ", idtypeOrder='" + idtypeOrder + '\'' +
                 ", idtimeOrder='" + idtimeOrder + '\'' +
                 ", nameOrder='" + nameOrder + '\'' +
@@ -146,8 +134,7 @@ public class Order {
                 '}';
     }
 
-    public Order(String idshopOrder, String idserviceOrder, String idtypeOrder, String idtimeOrder, String nameOrder, double weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
-        this.idshopOrder = idshopOrder;
+    public Order(String idserviceOrder, String idtypeOrder, String idtimeOrder, String nameOrder, double weightOrder, int costOrder, String nameReceiver, String numberReceiver, String addressReceiver, boolean paymentOrder) {
         this.idserviceOrder = idserviceOrder;
         this.idtypeOrder = idtypeOrder;
         this.idtimeOrder = idtimeOrder;

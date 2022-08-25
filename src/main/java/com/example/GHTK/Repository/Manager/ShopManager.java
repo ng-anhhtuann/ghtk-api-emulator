@@ -5,7 +5,7 @@ import com.example.GHTK.Model.UserRight.Order;
 import java.sql.SQLException;
 
 public interface ShopManager {
-    Object createOrder(Order order) throws SQLException;
+    Object createOrder(String id, Order order) throws SQLException;
 
     Object updateAddressCustomer(String id, String newAddress);
 

@@ -31,41 +31,41 @@ public class ShipperRepository implements ShipperManager {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
-        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
-                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
-                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
-                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
-                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
-                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
-                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
-                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
-                "   WHERE A.isAvailable = 1;";
+        String query = "SELECT B.name_shop_customer as name_shop_customer, B.number_customer as numbershop\n" +
+                "\t, B.address_customer as addressShop , A.daytime_order as daytime_order\n" +
+                "    , A.name_receiver_order as name_receiver_order, A.number_receiver_order as number_receiver_order\n" +
+                "    , A.address_receiver_order as address_receiver_order, D.name_shipper as name_shipper\n" +
+                "    , D.number_shipper as number_shipper, A.name_order as name_order\n" +
+                "    , A.cost_order as cost_order, F.name_type as typeOrder\n" +
+                "    , E.description_time as description_time, C.name_service as name_service\n" +
+                "    , A.approve_order as approve_order, A.status_deliver_order as status_deliver_order, A.available_order as available_order\n" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.id_shop_order = B.id_customer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.id_service_order = C.id_service\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_orderOrder = D.id_shipper_order\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.id_time_order = E.id_time\n" +
+                "                     INNER JOIN GHTK.types as F ON A.id_type_order = F.id_type" +
+                "   WHERE A.available_order = 1;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
-                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
-                        resultSet.getString("numberShop"),
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("name_shop_customer"),
+                        resultSet.getString("numbershop"),
                         resultSet.getString("addressShop"),
-                        resultSet.getString("daysendOrder"),
-                        resultSet.getString("nameReceiver"),
-                        resultSet.getString("numberReceiver"),
-                        resultSet.getString("addressReceiver"),
-                        resultSet.getString("nameShipper"),
-                        resultSet.getString("numberShipper"),
-                        resultSet.getString("nameOrder"),
-                        resultSet.getInt("costOrder"),
-                        resultSet.getString("nameType"),
-                        resultSet.getString("descriptionTime"),
-                        resultSet.getString("nameService"),
-                        resultSet.getBoolean("approveOrder"),
-                        resultSet.getBoolean("statusDeliver"),
-                        resultSet.getBoolean("isAvailable"));
+                        resultSet.getString("daytime_order"),
+                        resultSet.getString("name_receiver_order"),
+                        resultSet.getString("number_receiver_order"),
+                        resultSet.getString("address_receiver_order"),
+                        resultSet.getString("name_shipper"),
+                        resultSet.getString("number_shipper"),
+                        resultSet.getString("name_order"),
+                        resultSet.getInt("cost_order"),
+                        resultSet.getString("name_type"),
+                        resultSet.getString("description_time"),
+                        resultSet.getString("name_service"),
+                        resultSet.getBoolean("approve_order"),
+                        resultSet.getBoolean("status_deliver_order"),
+                        resultSet.getBoolean("available_order"));
                 orderDetailsList.add(orderDetails);
             }
             object = new Response(true, orderDetailsList);
@@ -80,41 +80,41 @@ public class ShipperRepository implements ShipperManager {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
-        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
-                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
-                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
-                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
-                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
-                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
-                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
-                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.shippers as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.timeline as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.types as F ON A.idtypeOrder = F.idType" +
-                "   WHERE A.idshipperOrder = '" + id + "';";
+        String query = "SELECT B.name_shop_customer as name_shop_customer, B.number_customer as numbershop\n" +
+                "\t, B.address_customer as addressShop , A.daytime_order as daytime_order\n" +
+                "    , A.name_receiver_order as name_receiver_order, A.number_receiver_order as number_receiver_order\n" +
+                "    , A.address_receiver_order as address_receiver_order, D.name_shipper as name_shipper\n" +
+                "    , D.number_shipper as number_shipper, A.name_order as name_order\n" +
+                "    , A.cost_order as cost_order, F.name_type as typeOrder\n" +
+                "    , E.description_time as description_time, C.name_service as name_service\n" +
+                "    , A.approve_order as approve_order, A.status_deliver_order as status_deliver_order, A.available_order as available_order\n" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.id_shop_order = B.id_customer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.id_service_order = C.id_service\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_orderOrder = D.id_shipper_order\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.id_time_order = E.id_time\n" +
+                "                     INNER JOIN GHTK.types as F ON A.id_type_order = F.id_type" +
+                "   WHERE A.id_shipper_orderOrder = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
-                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
-                        resultSet.getString("numberShop"),
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("name_shop_customer"),
+                        resultSet.getString("numbershop"),
                         resultSet.getString("addressShop"),
-                        resultSet.getString("daysendOrder"),
-                        resultSet.getString("nameReceiver"),
-                        resultSet.getString("numberReceiver"),
-                        resultSet.getString("addressReceiver"),
-                        resultSet.getString("nameShipper"),
-                        resultSet.getString("numberShipper"),
-                        resultSet.getString("nameOrder"),
-                        resultSet.getInt("costOrder"),
-                        resultSet.getString("nameType"),
-                        resultSet.getString("descriptionTime"),
-                        resultSet.getString("nameService"),
-                        resultSet.getBoolean("approveOrder"),
-                        resultSet.getBoolean("statusDeliver"),
-                        resultSet.getBoolean("isAvailable"));
+                        resultSet.getString("daytime_order"),
+                        resultSet.getString("name_receiver_order"),
+                        resultSet.getString("number_receiver_order"),
+                        resultSet.getString("address_receiver_order"),
+                        resultSet.getString("name_shipper"),
+                        resultSet.getString("number_shipper"),
+                        resultSet.getString("name_order"),
+                        resultSet.getInt("cost_order"),
+                        resultSet.getString("name_type"),
+                        resultSet.getString("description_time"),
+                        resultSet.getString("name_service"),
+                        resultSet.getBoolean("approve_order"),
+                        resultSet.getBoolean("status_deliver_order"),
+                        resultSet.getBoolean("available_order"));
                 orderDetailsList.add(orderDetails);
             }
             object = new Response(true, orderDetailsList);
@@ -125,27 +125,27 @@ public class ShipperRepository implements ShipperManager {
     }
 
     @Override
-    public Object registerOrder(String idOrder, String idShipper) {
+    public Object registerOrder(String id_order, String id_shipper_order) {
         Object object = null;
-        String checkAvailable = "SELECT isAvailable FROM GHTK.orders WHERE idOrder = '" + idOrder + "';";
+        String checkAvailable = "SELECT available_order FROM GHTK.orders WHERE id_order = '" + id_order + "';";
         String register = "UPDATE GHTK.orders as A\n" +
-                "SET A.idshipperOrder = '" + idShipper + "' \n" +
-                "WHERE A.idOrder = '" + idOrder + "';";
+                "SET A.id_shipper_orderOrder = '" + id_shipper_order + "' \n" +
+                "WHERE A.id_order = '" + id_order + "';";
 
         try {
             PreparedStatement checkStatement = connection.prepareStatement(checkAvailable);
             ResultSet set = checkStatement.executeQuery();
-            int isAvailable = set.getInt(1);
-            if (isAvailable == 1) {
+            int available_order = set.getInt(1);
+            if (available_order == 1) {
                 PreparedStatement takeStatement = connection.prepareStatement(register);
                 int row = takeStatement.executeUpdate();
                 if (row != 0) {
-                    object = new Response(true, "Order: " + idOrder + "is taken by shipper: " + idShipper);
+                    object = new Response(true, "Order: " + id_order + "is taken by shipper: " + id_shipper_order);
                 } else {
-                    object = new Response(false, "No order with id: " + idOrder);
+                    object = new Response(false, "No order with id: " + id_order);
                 }
             } else {
-                object = new Response(false, "Order: " + idOrder + " was taken before :(");
+                object = new Response(false, "Order: " + id_order + " was taken before :(");
             }
         } catch (SQLException e) {
             object = new Response(false, e.getMessage());
@@ -158,8 +158,8 @@ public class ShipperRepository implements ShipperManager {
     public Object updateAddressShipper(String id, String newAddress) {
         Object object = null;
         String update = "UPDATE GHTK.shippers as A\n" +
-                "SET A.addressShipper = '" + newAddress + "' \n" +
-                "WHERE A.idShipper = '" + id + "';";
+                "SET A.address_shipper = '" + newAddress + "' \n" +
+                "WHERE A.id_shipper_order = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -175,11 +175,11 @@ public class ShipperRepository implements ShipperManager {
     }
 
     @Override
-    public Object updateNameShipper(String id, String newNameShipper) {
+    public Object updateNameShipper(String id, String newname_shipper) {
         Object object = null;
         String update = "UPDATE GHTK.shippers as A\n" +
-                "SET A.nameShipper = '" + newNameShipper + "' \n" +
-                "WHERE A.idShipper = '" + id + "';";
+                "SET A.name_shipper = '" + newname_shipper + "' \n" +
+                "WHERE A.id_shipper_order = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -198,8 +198,8 @@ public class ShipperRepository implements ShipperManager {
     public Object updateNumberShipper(String id, String newNumber) {
         Object object = null;
         String update = "UPDATE GHTK.shippers as A\n" +
-                "SET A.numberShipper = '" + newNumber + "' \n" +
-                "WHERE A.idShipper = '" + id + "';";
+                "SET A.number_shipper = '" + newNumber + "' \n" +
+                "WHERE A.id_shipper_order = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -219,8 +219,8 @@ public class ShipperRepository implements ShipperManager {
         Object object = null;
 
         String update = "UPDATE GHTK.shippers as A\n" +
-                "SET A.mailShipper = '" + newMail + "' \n" +
-                "WHERE A.idShipper = '" + id + "';";
+                "SET A.mail_shipper = '" + newMail + "' \n" +
+                "WHERE A.id_shipper_order = '" + id + "';";
 
         if (ValidateMail.validate(newMail)) {
             try {
