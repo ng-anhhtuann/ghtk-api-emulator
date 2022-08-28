@@ -12,6 +12,6 @@ public class Post {
     @PostMapping(value = "post-order")
     public Object insertOrder(@RequestBody Order order, @PathVariable String id) throws SQLException {
         ShopRepository repository = ShopRepository.getRepository();
-        return repository.createOrder(order);
+        return repository.createOrder(id,order);
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController("ShopRightGet")
 @RequestMapping(value = "{id}/get")
 public class Get {
-    @GetMapping(value = "all-order")
+    @GetMapping(value = "all-order-customer")
     public Object getAllOrderOfCustomer(@PathVariable String id) {
         ShopRepository repository = ShopRepository.getRepository();
         return repository.queryAllOrderByIdCustomer(id);

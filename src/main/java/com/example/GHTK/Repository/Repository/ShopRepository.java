@@ -30,45 +30,45 @@ public class ShopRepository implements ShopManager {
     }
 
     @Override
-    public Object queryAllOrderByIdCustomer(String idshopOrder) {
+    public Object queryAllOrderByIdCustomer(String id_shop_order) {
         Object object = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
 
-        String query = "SELECT B.nameShop as nameShop, B.numberCustomer as numberShop\n" +
-                "\t, B.addressCustomer as addressShop , A.daysendOrder as daysendOrder\n" +
-                "    , A.nameReceiver as nameReceiver, A.numberReceiver as numberReceiver\n" +
-                "    , A.addressReceiver as addressReceiver, D.nameShipper as nameShipper\n" +
-                "    , D.numberShipper as numberShipper, A.nameOrder as nameOrder\n" +
-                "    , A.costOrder as costOrder, F.nameType as typeOrder\n" +
-                "    , E.descriptionTime as descriptionTime, C.nameService as nameService\n" +
-                "    , A.approveOrder as approveOrder, A.statusDeliver as statusDeliver, A.isAvailable as isAvailable\n" +
-                "   FROM GHTK.Order as A INNER JOIN GHTK.Customer as B ON A.idshopOrder = B.idCustomer\n" +
-                "\t\t\t\t\t INNER JOIN GHTK.Service as C ON A.idserviceOrder = C.idService\n" +
-                "                     INNER JOIN GHTK.Shipper as D ON A.idshipperOrder = D.idShipper\n" +
-                "                     INNER JOIN GHTK.Time as E ON A.idtimeOrder = E.idTime\n" +
-                "                     INNER JOIN GHTK.Type as F ON A.idtypeOrder = F.idType" +
-                "   WHERE A.idshopOrder = '" + idshopOrder + "';";
+        String query = "SELECT B.name_shop_customer as name_shop_customer, B.number_customer as numberShop\n" +
+                "\t, B.address_customer as addressShop , A.daytime_order as daytime_order\n" +
+                "    , A.name_receiver_order as name_receiver_order, A.number_receiver_order as number_receiver_order\n" +
+                "    , A.address_receiver_order as address_receiver_order, D.name_shipper as name_shipper\n" +
+                "    , D.number_shipper as number_shipper, A.name_order as name_order\n" +
+                "    , A.cost_order as cost_order, F.name_type as typeOrder\n" +
+                "    , E.description_time as description_time, C.name_service as name_service\n" +
+                "    , A.approve_order as approve_order, A.status_deliver_order as status_deliver_order, A.available_order as available_order\n" +
+                "   FROM GHTK.orders as A INNER JOIN GHTK.customers as B ON A.id_shop_order = B.id_customer\n" +
+                "\t\t\t\t\t INNER JOIN GHTK.services as C ON A.id_service_order = C.id_service\n" +
+                "                     INNER JOIN GHTK.shippers as D ON A.id_shipper_order = D.id_shipper\n" +
+                "                     INNER JOIN GHTK.timeline as E ON A.id_time_order = E.id_time\n" +
+                "                     INNER JOIN GHTK.types as F ON A.id_type_order = F.id_type" +
+                "   WHERE A.id_shop_order = '" + id_shop_order + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
-                OrderDetails orderDetails = new OrderDetails(resultSet.getString("nameShop"),
+                OrderDetails orderDetails = new OrderDetails(resultSet.getString("name_shop_customer"),
                         resultSet.getString("numberShop"),
                         resultSet.getString("addressShop"),
-                        resultSet.getString("daysendOrder"),
-                        resultSet.getString("nameReceiver"),
-                        resultSet.getString("numberReceiver"),
-                        resultSet.getString("addressReceiver"),
-                        resultSet.getString("nameShipper"),
-                        resultSet.getString("numberShipper"),
-                        resultSet.getString("nameOrder"),
-                        resultSet.getInt("costOrder"),
+                        resultSet.getString("daytime_order"),
+                        resultSet.getString("name_receiver_order"),
+                        resultSet.getString("number_receiver_order"),
+                        resultSet.getString("address_receiver_order"),
+                        resultSet.getString("name_shipper"),
+                        resultSet.getString("number_shipper"),
+                        resultSet.getString("name_order"),
+                        resultSet.getInt("cost_order"),
                         resultSet.getString("nameType"),
-                        resultSet.getString("descriptionTime"),
-                        resultSet.getString("nameService"),
-                        resultSet.getBoolean("approveOrder"),
-                        resultSet.getBoolean("statusDeliver"),
-                        resultSet.getBoolean("isAvailable"));
+                        resultSet.getString("description_time"),
+                        resultSet.getString("name_service"),
+                        resultSet.getBoolean("approve_order"),
+                        resultSet.getBoolean("status_deliver_order"),
+                        resultSet.getBoolean("available_order"));
                 orderDetailsList.add(orderDetails);
             }
             object = new Response(true, orderDetailsList);
@@ -79,20 +79,20 @@ public class ShopRepository implements ShopManager {
     }
 
     @Override
-    public Object createOrder(Order order) throws SQLException {
+    public Object createOrder(String id, Order order) throws SQLException {
         Object object = null;
         if (order == null) {
             object = new Response(false, "We dont accept null information here");
         }
 
-        String insert = "INSERT INTO GHTK.Order(idOrder, idshopOrder, idshipperOrder, idserviceOrder," +
-                "idtypeOrder, idtimeOrder, daysendOrder, nameOrder, weightOrder, costOrder," +
-                "nameReceiver, numberReceiver, addressReceiver, paymentOrder, approveOrder," +
-                "statusDeliver, isAvailable) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String insert = "INSERT INTO GHTK.orders(id_order, id_shop_order, id_shipper_order, id_service_order," +
+                "id_type_order, id_time_order, daytime_order, name_order, weight_order, cost_order," +
+                "name_receiver_order, number_receiver_order, address_receiver_order, payment_order, approve_order," +
+                "status_deliver_order, available_order) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        String timeCreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
+        String timecreated = new SimpleDateFormat("dd-MM-yyyy ss:mm:HH").format(new Date());
 
-        String lastRecord = "SELECT idOrder FROM GHTK.Order ORDER BY idOrder DESC LIMIT 1;";
+        String lastRecord = "SELECT id_order FROM GHTK.orders ORDER BY id_order DESC LIMIT 1;";
         PreparedStatement lastRecordPS = connection.prepareStatement(lastRecord);
         ResultSet resultLastRecord = lastRecordPS.executeQuery();
 
@@ -105,12 +105,12 @@ public class ShopRepository implements ShopManager {
             } else {
                 preparedStatement.setString(1, "DH1");
             }
-            preparedStatement.setString(2, order.getIdshopOrder());
+            preparedStatement.setString(2, id);
             preparedStatement.setString(3, null);
             preparedStatement.setString(4, order.getIdserviceOrder());
             preparedStatement.setString(5, order.getIdtypeOrder());
             preparedStatement.setString(6, order.getIdtimeOrder());
-            preparedStatement.setString(7, timeCreated);
+            preparedStatement.setString(7, timecreated);
             preparedStatement.setString(8, order.getNameOrder());
             preparedStatement.setDouble(9, order.getWeightOrder());
             preparedStatement.setInt(10, order.getCostOrder());
@@ -132,9 +132,9 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateAddressCustomer(String id, String newAddress) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
-                "SET A.addressCustomer = '" + newAddress + "' \n" +
-                "WHERE A.idCustomer = '" + id + "';";
+        String update = "UPDATE GHTK.customers as A\n" +
+                "SET A.address_customer = '" + newAddress + "' \n" +
+                "WHERE A.id_customer = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -150,16 +150,16 @@ public class ShopRepository implements ShopManager {
     }
 
     @Override
-    public Object updateNameShopCustomer(String id, String newNameShop) {
+    public Object updateNameShopCustomer(String id, String newname_shop_customer) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
-                "SET A.nameShop = '" + newNameShop + "' \n" +
-                "WHERE A.idCustomer = '" + id + "';";
+        String update = "UPDATE GHTK.customers as A\n" +
+                "SET A.name_shop_customer = '" + newname_shop_customer + "' \n" +
+                "WHERE A.id_customer = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
             if (rowsEffected != 0) {
-                object = new Response(true, "NameShop is updated for user " + id);
+                object = new Response(true, "name_shop_customer is updated for user " + id);
             } else {
                 object = new Response(false, "Unknown id :" + id);
             }
@@ -170,11 +170,11 @@ public class ShopRepository implements ShopManager {
     }
 
     @Override
-    public Object updateNameCustomer(String id, String newNameCustomer) {
+    public Object updateNameCustomer(String id, String newname_customer) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
-                "SET A.nameCustomer = '" + newNameCustomer + "' \n" +
-                "WHERE A.idCustomer = '" + id + "';";
+        String update = "UPDATE GHTK.customers as A\n" +
+                "SET A.name_customer = '" + newname_customer + "' \n" +
+                "WHERE A.id_customer = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -192,9 +192,9 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateAreaCustomer(String id, String newArea) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
-                "SET A.areaCustomer = '" + newArea + "' \n" +
-                "WHERE A.idCustomer = '" + id + "';";
+        String update = "UPDATE GHTK.customers as A\n" +
+                "SET A.area_customer = '" + newArea + "' \n" +
+                "WHERE A.id_customer = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -212,9 +212,9 @@ public class ShopRepository implements ShopManager {
     @Override
     public Object updateNumberCustomer(String id, String newNumber) {
         Object object = null;
-        String update = "UPDATE GHTK.Customer as A\n" +
-                "SET A.numberCustomer = '" + newNumber + "' \n" +
-                "WHERE A.idCustomer = '" + id + "';";
+        String update = "UPDATE GHTK.customers as A\n" +
+                "SET A.number_customer = '" + newNumber + "' \n" +
+                "WHERE A.id_customer = '" + id + "';";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             int rowsEffected = preparedStatement.executeUpdate();
@@ -233,9 +233,9 @@ public class ShopRepository implements ShopManager {
     public Object updateMailCustomer(String id, String newMail) {
         Object object = null;
 
-        String update = "UPDATE GHTK.Customer as A\n" +
+        String update = "UPDATE GHTK.customers as A\n" +
                 "SET A.mailCustomer = '" + newMail + "' \n" +
-                "WHERE A.idCustomer = '" + id + "';";
+                "WHERE A.id_customer = '" + id + "';";
 
         if (ValidateMail.validate(newMail)) {
             try {
