@@ -20,7 +20,7 @@ public class Database {
     public static Connection connection;
 
     static {
-        String url = "jdbc:mysql://localhost:3306/GHTK";
+        String url = "jdbc:mysql://localhost:3306/ightk";
         String username = "root";
         String password = "0944988947t";
         try {
