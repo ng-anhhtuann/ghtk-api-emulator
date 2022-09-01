@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 
 @RestController("ShopRightPost")
-@RequestMapping(value = "{id}/post")
+@RequestMapping(value = "/{id}/post")
 public class Post {
     @PostMapping(value = "post-order")
     public Object insertOrder(@RequestBody Order order, @PathVariable String id) throws SQLException {
