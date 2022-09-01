@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("ShipperRightPost")
-@RequestMapping(value = "{id}/get")
+@RequestMapping(value = "/{id}/get")
 public class Get {
     @GetMapping(value = "all-available-order")
     public Object getAllOrderAvailable(@PathVariable String id) {

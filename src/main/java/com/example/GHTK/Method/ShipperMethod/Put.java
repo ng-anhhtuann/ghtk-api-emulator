@@ -4,7 +4,7 @@ import com.example.GHTK.Repository.Repository.ShipperRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("ShipperRightPut")
-@RequestMapping(value = "{id}/update")
+@RequestMapping(value = "/{id}/update")
 public class Put {
     @PutMapping(value = "take-order")
     public Object registerOrder(@RequestBody String idOrder, @PathVariable String id) {

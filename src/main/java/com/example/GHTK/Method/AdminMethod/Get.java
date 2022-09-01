@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.example.GHTK.Repository.Repository.AdminRepository.getRepository;
 
 @RestController("AdminRightGet")
-@RequestMapping(value = "admin/get")
+@RequestMapping(value = "/admin/get")
 public class Get {
     @GetMapping(value = "all-customer")
     public Object getCustomer() {

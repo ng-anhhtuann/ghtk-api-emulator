@@ -4,7 +4,7 @@ import com.example.GHTK.Repository.Repository.ShopRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("ShopRightPut")
-@RequestMapping(value = "{id}/update")
+@RequestMapping(value = "/{id}/update")
 public class Put {
     @PutMapping(value = "address-customer")
     public Object updateAddress(@PathVariable String id, @RequestBody String newThing) {

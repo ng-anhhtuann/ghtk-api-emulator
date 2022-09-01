@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 
 @RestController("AdminRightPost")
-@RequestMapping(value = "admin/post")
+@RequestMapping(value = "/admin/post")
 @ResponseStatus(HttpStatus.CREATED)
 public class Post {
     @PostMapping(value = "area")

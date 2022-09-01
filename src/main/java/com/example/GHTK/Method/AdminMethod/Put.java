@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("AdminRightPut")
-@RequestMapping(value = "admin/put")
+@RequestMapping(value = "/admin/put")
 public class Put {
     @PutMapping(value = "approve-all-order")
     public Object approvedAllOrder(){
